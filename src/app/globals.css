@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-brand-white text-brand-black antialiased;
+  }
+
+  /* Dark mode base styles */
+  .dark body {
+    @apply bg-brand-black text-brand-white;
+  }
+
+  ::selection {
+    @apply bg-brand-black text-brand-white;
+  }
+
+  .dark ::selection {
+    @apply bg-brand-white text-brand-black;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Enhanced focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-gold ring-offset-2 ring-offset-brand-white;
+  }
+
+  .dark :focus-visible {
+    @apply ring-accent-gold ring-offset-brand-black;
+  }
+
+  /* Remove default focus for mouse users, keep for keyboard */
+  :focus:not(:focus-visible) {
+    @apply outline-none ring-0;
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply mx-auto max-w-[1400px] px-6 md:px-10 lg:px-16;
+  }
+
+  .container-narrow {
+    @apply mx-auto max-w-[1100px] px-6 md:px-10 lg:px-16;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .heading-display {
+    @apply font-display font-semibold tracking-tight;
+  }
+
+  .link-underline {
+    @apply relative inline-block;
+  }
+
+  .link-underline::after {
+    @apply absolute bottom-0 left-0 h-[1px] w-0 bg-current transition-all duration-300 content-[''];
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-brand-light;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    @apply bg-brand-charcoal;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-brand-gray;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-charcoal;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-brand-slate;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-silver;
+  }
+
+  /* Marquee pause on hover */
+  .pause {
+    animation-play-state: paused !important;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-black to-brand-slate bg-clip-text text-transparent;
+  }
+
+  /* Vertical text for architectural styling */
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+}

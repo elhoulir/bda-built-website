@@ -2,13 +2,21 @@
 
 import { TextMarquee } from '@/components/ui/Marquee'
 
+const bannerPhrases = [
+  'Building Excellence',
+  'Crafting Landmarks',
+  'Precision Construction',
+  'Trusted Partnerships',
+  'Quality Delivered',
+]
+
 export function MarqueeBanner() {
   return (
     <section className="overflow-hidden border-y border-brand-black/10 bg-brand-black py-6">
       <TextMarquee
-        text="Building Excellence"
+        text={bannerPhrases}
         separator="✦"
-        speed={25}
+        speed={35}
         textClassName="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-wider"
       />
     </section>

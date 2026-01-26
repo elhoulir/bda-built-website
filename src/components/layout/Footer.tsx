@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { navigation } from '@/lib/data'
-import { Mail, Phone, MapPin, Linkedin, Instagram } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -162,14 +162,14 @@ export function Footer() {
               </li>
             </ul>
             {/* Licenses */}
-            <div className="mt-6 pt-4 border-t border-brand-charcoal">
-              <p className="text-[10px] uppercase tracking-wider text-brand-gray mb-2">Builder&apos;s Licenses</p>
+            <div className="mt-6 border-t border-brand-charcoal pt-4">
+              <p className="mb-2 text-[10px] uppercase tracking-wider text-brand-gray">
+                Builder&apos;s Licenses
+              </p>
               <p className="text-xs text-brand-silver">
                 Domestic: DBU69323 / CDBU67965
               </p>
-              <p className="text-xs text-brand-silver">
-                Commercial: CBL100108
-              </p>
+              <p className="text-xs text-brand-silver">Commercial: CBL100108</p>
             </div>
           </div>
         </div>

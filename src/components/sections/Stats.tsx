@@ -8,7 +8,7 @@ import { stats } from '@/lib/data'
 function AnimatedCounter({
   value,
   suffix = '',
-  dark = false,
+  dark: _dark = false,
 }: {
   value: number
   suffix?: string
@@ -157,9 +157,7 @@ export function Stats({ dark = false }: StatsProps) {
                 </p>
 
                 {/* Hover accent line */}
-                <motion.div
-                  className="mx-auto mt-4 h-0.5 w-0 bg-accent-gold transition-all duration-500 group-hover:w-12"
-                />
+                <motion.div className="mx-auto mt-4 h-0.5 w-0 bg-accent-gold transition-all duration-500 group-hover:w-12" />
               </div>
             </motion.div>
           ))}

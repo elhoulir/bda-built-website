@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowDown } from 'lucide-react'
@@ -26,7 +26,11 @@ function ProjectCard({
       transition={{ delay: index * 0.1 }}
       viewport={{ once: true }}
     >
-      <Link href={`/projects/${project.slug}`}>
+      <Link
+        href={`/projects/${project.slug}`}
+        data-cursor="view"
+        data-cursor-text="View"
+      >
         {/* Image container */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
@@ -84,6 +88,23 @@ function ProjectCard({
       </Link>
     </motion.article>
   )
+}
+
+// Progress dot component to fix hooks rules violation
+function ProgressDot({
+  index,
+  scrollYProgress,
+}: {
+  index: number
+  scrollYProgress: MotionValue<number>
+}) {
+  const background = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 1) * 0.25],
+    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
+  )
+
+  return <motion.div className="h-1 w-8 bg-white/20" style={{ background }} />
 }
 
 // Mobile layout - vertical stacked cards
@@ -155,7 +176,10 @@ function DesktopLayout() {
   const featuredProjects = projects.slice(0, 4)
 
   return (
-    <section ref={targetRef} className="relative hidden h-[400vh] bg-brand-black lg:block">
+    <section
+      ref={targetRef}
+      className="relative hidden h-[400vh] bg-brand-black lg:block"
+    >
       {/* Section header - fixed at top */}
       <div className="sticky top-0 z-10 bg-brand-black pb-8 pt-24">
         <div className="container-wide">
@@ -192,23 +216,21 @@ function DesktopLayout() {
                 <span>Scroll to explore</span>
                 <motion.div
                   animate={{ y: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
                 >
                   <ArrowDown className="h-3 w-3" />
                 </motion.div>
               </div>
               <div className="mt-2 flex justify-end gap-1">
                 {[...Array(4)].map((_, i) => (
-                  <motion.div
+                  <ProgressDot
                     key={i}
-                    className="h-1 w-8 bg-white/20"
-                    style={{
-                      background: useTransform(
-                        scrollYProgress,
-                        [i * 0.25, (i + 1) * 0.25],
-                        ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
-                      ),
-                    }}
+                    index={i}
+                    scrollYProgress={scrollYProgress}
                   />
                 ))}
               </div>
@@ -229,7 +251,11 @@ function DesktopLayout() {
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Link href={`/projects/${project.slug}`}>
+              <Link
+                href={`/projects/${project.slug}`}
+                data-cursor="view"
+                data-cursor-text="View"
+              >
                 {/* Image container */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image

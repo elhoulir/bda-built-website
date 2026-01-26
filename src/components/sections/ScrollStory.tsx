@@ -1,9 +1,8 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
 import Image from 'next/image'
-import { TextReveal } from '@/components/ui/TextReveal'
 
 const storySegments = [
   {
@@ -26,7 +25,7 @@ const storySegments = [
     title: 'Legacy',
     subtitle: 'Built to endure',
     description:
-      'We don\'t just build structures; we create landmarks that stand the test of time, shaping skylines for generations.',
+      "We don't just build structures; we create landmarks that stand the test of time, shaping skylines for generations.",
     image:
       'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&h=1200&fit=crop&q=80',
   },
@@ -39,19 +38,14 @@ function StorySegment({
 }: {
   segment: (typeof storySegments)[0]
   index: number
-  progress: any
+  progress: MotionValue<number>
 }) {
   const segmentStart = index / storySegments.length
   const segmentEnd = (index + 1) / storySegments.length
 
   const opacity = useTransform(
     progress,
-    [
-      segmentStart,
-      segmentStart + 0.1,
-      segmentEnd - 0.1,
-      segmentEnd,
-    ],
+    [segmentStart, segmentStart + 0.1, segmentEnd - 0.1, segmentEnd],
     [0, 1, 1, 0]
   )
 
@@ -61,11 +55,7 @@ function StorySegment({
     [0.8, 1, 1, 1.1]
   )
 
-  const y = useTransform(
-    progress,
-    [segmentStart, segmentEnd],
-    ['10%', '-10%']
-  )
+  const y = useTransform(progress, [segmentStart, segmentEnd], ['10%', '-10%'])
 
   return (
     <motion.div
@@ -84,10 +74,7 @@ function StorySegment({
       </motion.div>
 
       {/* Content */}
-      <motion.div
-        className="container-wide relative z-10"
-        style={{ y }}
-      >
+      <motion.div className="container-wide relative z-10" style={{ y }}>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           {/* Text */}
           <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
@@ -151,6 +138,50 @@ function StorySegment({
   )
 }
 
+// Separate component to fix hooks rules violation
+function ProgressIndicator({
+  index,
+  scrollYProgress,
+}: {
+  index: number
+  scrollYProgress: MotionValue<number>
+}) {
+  const segmentStart = index / storySegments.length
+  const segmentEnd = (index + 1) / storySegments.length
+  const isActive = useTransform(
+    scrollYProgress,
+    [segmentStart, segmentEnd],
+    [0, 1]
+  )
+  const background = useTransform(
+    isActive,
+    [0, 1],
+    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
+  )
+
+  return <motion.div className="h-16 w-px bg-white/20" style={{ background }} />
+}
+
+// Separate component for scroll hint
+function ScrollHint({
+  scrollYProgress,
+}: {
+  scrollYProgress: MotionValue<number>
+}) {
+  const opacity = useTransform(scrollYProgress, [0, 0.1], [1, 0])
+
+  return (
+    <motion.div
+      className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center"
+      style={{ opacity }}
+    >
+      <span className="text-xs uppercase tracking-[0.2em] text-brand-silver/50">
+        Scroll to explore our story
+      </span>
+    </motion.div>
+  )
+}
+
 export function ScrollStory() {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -160,33 +191,22 @@ export function ScrollStory() {
   })
 
   return (
-    <section ref={containerRef} className="relative" style={{ height: '300vh' }}>
+    <section
+      ref={containerRef}
+      className="relative"
+      style={{ height: '260vh' }}
+    >
       {/* Sticky container */}
       <div className="sticky top-0 h-screen overflow-hidden bg-brand-black">
         {/* Progress indicator */}
         <div className="absolute left-8 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-4 lg:flex">
-          {storySegments.map((_, index) => {
-            const segmentStart = index / storySegments.length
-            const segmentEnd = (index + 1) / storySegments.length
-            const isActive = useTransform(
-              scrollYProgress,
-              [segmentStart, segmentEnd],
-              [0, 1]
-            )
-            return (
-              <motion.div
-                key={index}
-                className="h-16 w-px bg-white/20"
-                style={{
-                  background: useTransform(
-                    isActive,
-                    [0, 1],
-                    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
-                  ),
-                }}
-              />
-            )
-          })}
+          {storySegments.map((_, index) => (
+            <ProgressIndicator
+              key={index}
+              index={index}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
         </div>
 
         {/* Story segments */}
@@ -200,16 +220,7 @@ export function ScrollStory() {
         ))}
 
         {/* Scroll hint */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center"
-          style={{
-            opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]),
-          }}
-        >
-          <span className="text-xs uppercase tracking-[0.2em] text-brand-silver/50">
-            Scroll to explore our story
-          </span>
-        </motion.div>
+        <ScrollHint scrollYProgress={scrollYProgress} />
       </div>
     </section>
   )

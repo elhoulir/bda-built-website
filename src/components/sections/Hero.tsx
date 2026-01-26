@@ -1,31 +1,62 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
 
 // Architectural grid overlay - blueprint style with more visible elements
 function ArchitecturalGrid() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* More visible grid pattern */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.06]">
+      <svg className="absolute inset-0 h-full w-full opacity-[0.06]">
         <defs>
-          <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-            <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" strokeWidth="0.5" />
+          <pattern
+            id="grid"
+            width="80"
+            height="80"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 80 0 L 0 0 0 80"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.5"
+            />
           </pattern>
-          <pattern id="grid-small" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" strokeWidth="0.25" />
+          <pattern
+            id="grid-small"
+            width="20"
+            height="20"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 20 0 L 0 0 0 20"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.25"
+            />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
-        <rect width="100%" height="100%" fill="url(#grid-small)" opacity="0.3" />
+        <rect
+          width="100%"
+          height="100%"
+          fill="url(#grid-small)"
+          opacity="0.3"
+        />
       </svg>
 
       {/* Prominent vertical measurement lines with markers */}
       <motion.div
-        className="absolute left-[8%] top-0 bottom-0 w-px"
+        className="absolute bottom-0 left-[8%] top-0 w-px"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: 1.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -36,7 +67,7 @@ function ArchitecturalGrid() {
         {[20, 40, 60, 80].map((pos) => (
           <motion.div
             key={pos}
-            className="absolute left-0 w-3 h-px bg-accent-gold/40"
+            className="absolute left-0 h-px w-3 bg-accent-gold/40"
             style={{ top: `${pos}%` }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -46,7 +77,7 @@ function ArchitecturalGrid() {
       </motion.div>
 
       <motion.div
-        className="absolute right-[12%] top-0 bottom-0 w-px hidden lg:block"
+        className="absolute bottom-0 right-[12%] top-0 hidden w-px lg:block"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: 1.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -78,7 +109,7 @@ function ArchitecturalGrid() {
 
       {/* Diagonal accent line */}
       <motion.div
-        className="absolute top-0 right-0 w-px h-[50vh] origin-top-right hidden md:block"
+        className="absolute right-0 top-0 hidden h-[50vh] w-px origin-top-right md:block"
         style={{ transform: 'rotate(25deg)', transformOrigin: 'top right' }}
         initial={{ scaleY: 0, opacity: 0 }}
         animate={{ scaleY: 1, opacity: 1 }}
@@ -98,9 +129,12 @@ function CornerBrackets() {
   }
 
   return (
-    <div className="absolute inset-6 md:inset-10 lg:inset-14 pointer-events-none">
+    <div className="pointer-events-none absolute inset-6 md:inset-10 lg:inset-14">
       {/* Top Left - larger and more visible */}
-      <svg className="absolute top-0 left-0 w-24 h-24 md:w-36 md:h-36 lg:w-44 lg:h-44" viewBox="0 0 100 100">
+      <svg
+        className="absolute left-0 top-0 h-24 w-24 md:h-36 md:w-36 lg:h-44 lg:w-44"
+        viewBox="0 0 100 100"
+      >
         <motion.path
           d="M 0 50 L 0 0 L 50 0"
           fill="none"
@@ -126,7 +160,10 @@ function CornerBrackets() {
       </svg>
 
       {/* Top Right */}
-      <svg className="absolute top-0 right-0 w-24 h-24 md:w-36 md:h-36 lg:w-44 lg:h-44" viewBox="0 0 100 100">
+      <svg
+        className="absolute right-0 top-0 h-24 w-24 md:h-36 md:w-36 lg:h-44 lg:w-44"
+        viewBox="0 0 100 100"
+      >
         <motion.path
           d="M 50 0 L 100 0 L 100 50"
           fill="none"
@@ -151,7 +188,10 @@ function CornerBrackets() {
       </svg>
 
       {/* Bottom Left */}
-      <svg className="absolute bottom-0 left-0 w-24 h-24 md:w-36 md:h-36 lg:w-44 lg:h-44" viewBox="0 0 100 100">
+      <svg
+        className="absolute bottom-0 left-0 h-24 w-24 md:h-36 md:w-36 lg:h-44 lg:w-44"
+        viewBox="0 0 100 100"
+      >
         <motion.path
           d="M 0 50 L 0 100 L 50 100"
           fill="none"
@@ -175,7 +215,10 @@ function CornerBrackets() {
       </svg>
 
       {/* Bottom Right */}
-      <svg className="absolute bottom-0 right-0 w-24 h-24 md:w-36 md:h-36 lg:w-44 lg:h-44" viewBox="0 0 100 100">
+      <svg
+        className="absolute bottom-0 right-0 h-24 w-24 md:h-36 md:w-36 lg:h-44 lg:w-44"
+        viewBox="0 0 100 100"
+      >
         <motion.path
           d="M 100 50 L 100 100 L 50 100"
           fill="none"
@@ -204,19 +247,24 @@ function CornerBrackets() {
 // Floating architectural elements - much more visible
 function FloatingElements() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* Large building silhouette - right side */}
       <motion.div
-        className="absolute right-0 top-[10%] w-[400px] md:w-[500px] lg:w-[600px] h-[80%] opacity-[0.08]"
+        className="absolute right-0 top-[10%] h-[80%] w-[400px] opacity-[0.08] md:w-[500px] lg:w-[600px]"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 0.08, x: 0 }}
         transition={{ duration: 1.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
       >
-        <svg viewBox="0 0 400 600" fill="none" className="w-full h-full">
+        <svg viewBox="0 0 400 600" fill="none" className="h-full w-full">
           {/* Tall tower */}
           <motion.rect
-            x="80" y="50" width="100" height="550"
-            stroke="white" strokeWidth="1" fill="none"
+            x="80"
+            y="50"
+            width="100"
+            height="550"
+            stroke="white"
+            strokeWidth="1"
+            fill="none"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 2, delay: 0.5 }}
@@ -225,8 +273,13 @@ function FloatingElements() {
           {[0, 1, 2, 3, 4, 5, 6, 7].map((row) => (
             <motion.rect
               key={`tw-${row}`}
-              x="100" y={100 + row * 60} width="60" height="40"
-              stroke="white" strokeWidth="0.5" fill="none"
+              x="100"
+              y={100 + row * 60}
+              width="60"
+              height="40"
+              stroke="white"
+              strokeWidth="0.5"
+              fill="none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.6 }}
               transition={{ duration: 0.3, delay: 1.5 + row * 0.1 }}
@@ -235,8 +288,13 @@ function FloatingElements() {
 
           {/* Medium building */}
           <motion.rect
-            x="200" y="150" width="120" height="450"
-            stroke="white" strokeWidth="1" fill="none"
+            x="200"
+            y="150"
+            width="120"
+            height="450"
+            stroke="white"
+            strokeWidth="1"
+            fill="none"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 2, delay: 0.7 }}
@@ -245,8 +303,13 @@ function FloatingElements() {
           {[0, 1, 2, 3, 4, 5].map((row) => (
             <motion.rect
               key={`mw-${row}`}
-              x="220" y={200 + row * 65} width="80" height="45"
-              stroke="white" strokeWidth="0.5" fill="none"
+              x="220"
+              y={200 + row * 65}
+              width="80"
+              height="45"
+              stroke="white"
+              strokeWidth="0.5"
+              fill="none"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ duration: 0.3, delay: 1.8 + row * 0.1 }}
@@ -255,8 +318,13 @@ function FloatingElements() {
 
           {/* Small building */}
           <motion.rect
-            x="340" y="280" width="80" height="320"
-            stroke="white" strokeWidth="1" fill="none"
+            x="340"
+            y="280"
+            width="80"
+            height="320"
+            stroke="white"
+            strokeWidth="1"
+            fill="none"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
             transition={{ duration: 2, delay: 0.9 }}
@@ -266,7 +334,7 @@ function FloatingElements() {
 
       {/* Ambient glow - larger and more visible */}
       <motion.div
-        className="absolute -left-32 top-1/4 h-[600px] w-[600px] rounded-full bg-accent-gold/8 blur-[120px]"
+        className="bg-accent-gold/8 absolute -left-32 top-1/4 h-[600px] w-[600px] rounded-full blur-[120px]"
         animate={{
           scale: [1, 1.15, 1],
           opacity: [0.6, 1, 0.6],
@@ -325,13 +393,13 @@ function ScrollProgressLine() {
 
   return (
     <motion.div
-      className="fixed right-6 top-1/2 -translate-y-1/2 h-32 w-px bg-white/10 z-50 hidden lg:block"
+      className="fixed right-6 top-1/2 z-50 hidden h-32 w-px -translate-y-1/2 bg-white/10 lg:block"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 2 }}
     >
       <motion.div
-        className="absolute top-0 left-0 w-full bg-accent-gold origin-top"
+        className="absolute left-0 top-0 w-full origin-top bg-accent-gold"
         style={{ height: '100%', scaleY }}
       />
     </motion.div>
@@ -342,7 +410,7 @@ function ScrollProgressLine() {
 function AnimatedHeadline({
   children,
   className,
-  delay = 0
+  delay = 0,
 }: {
   children: string
   className?: string
@@ -379,11 +447,14 @@ function RotatingWords() {
   }, [])
 
   return (
-    <span className="relative inline-block h-[1.2em] overflow-hidden align-bottom" style={{ minWidth: '11ch' }}>
+    <span
+      className="relative inline-block h-[1.2em] overflow-hidden align-bottom"
+      style={{ minWidth: '11ch' }}
+    >
       <AnimatePresence mode="wait">
         <motion.span
           key={words[currentIndex]}
-          className="absolute left-0 text-accent-gold whitespace-nowrap"
+          className="absolute left-0 whitespace-nowrap text-accent-gold"
           initial={{ y: '100%', opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '-100%', opacity: 0 }}
@@ -400,31 +471,31 @@ function RotatingWords() {
 function VerticalText() {
   return (
     <motion.div
-      className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4"
+      className="absolute left-4 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-4 md:left-8 lg:flex"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 1, delay: 1.5 }}
     >
       <motion.div
-        className="w-px h-24 bg-gradient-to-b from-transparent via-accent-gold to-transparent"
+        className="h-24 w-px bg-gradient-to-b from-transparent via-accent-gold to-transparent"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: 1, delay: 1.7 }}
       />
-      <span className="text-[11px] uppercase tracking-[0.25em] text-accent-gold/70 writing-vertical font-medium">
+      <span className="writing-vertical text-[11px] font-medium uppercase tracking-[0.25em] text-accent-gold/70">
         Est. 2015
       </span>
       <motion.div
-        className="w-px h-20 bg-gradient-to-b from-transparent via-white/30 to-transparent"
+        className="h-20 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: 1, delay: 1.9 }}
       />
-      <span className="text-[10px] uppercase tracking-[0.2em] text-brand-silver/40 writing-vertical">
+      <span className="writing-vertical text-[10px] uppercase tracking-[0.2em] text-brand-silver/40">
         Melbourne
       </span>
       <motion.div
-        className="w-px h-16 bg-gradient-to-b from-transparent via-white/20 to-transparent"
+        className="h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: 1, delay: 2.1 }}
@@ -433,11 +504,15 @@ function VerticalText() {
   )
 }
 
+// Video sources for the hero section
+const heroVideos = ['/videos/hero-video-1.mp4', '/videos/hero-video-2.mp4']
+
 export function Hero() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -469,6 +544,21 @@ export function Hero() {
     }
   }, [isVideoPlaying, isMuted])
 
+  // Handle video end - switch to next video in sequence
+  const handleVideoEnded = () => {
+    setCurrentVideoIndex((prev) => (prev + 1) % heroVideos.length)
+  }
+
+  // When video index changes, load and play the new video
+  useEffect(() => {
+    if (videoRef.current && videoLoaded) {
+      videoRef.current.load()
+      if (isVideoPlaying) {
+        videoRef.current.play().catch(() => {})
+      }
+    }
+  }, [currentVideoIndex])
+
   return (
     <section
       ref={containerRef}
@@ -492,22 +582,18 @@ export function Hero() {
           ref={videoRef}
           autoPlay
           muted
-          loop
           playsInline
           onLoadedData={() => setVideoLoaded(true)}
+          onEnded={handleVideoEnded}
           className="absolute inset-0 h-full w-full object-cover"
           poster="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80"
         >
-          <source
-            src="https://cdn.coverr.co/videos/coverr-modern-architecture-timelapse-2391/1080p.mp4"
-            type="video/mp4"
-          />
+          <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
         </video>
 
-        {/* Sophisticated gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/70 to-brand-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-brand-black/50" />
-        <div className="absolute inset-0 bg-brand-black/30" />
+        {/* Much brighter overlays - let the video shine */}
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-black/60 via-brand-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-transparent to-brand-black/20" />
       </motion.div>
 
       {/* Architectural visual elements */}
@@ -537,16 +623,24 @@ export function Hero() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="flex items-center gap-4"
               >
                 <motion.div
                   className="h-px bg-accent-gold"
                   initial={{ width: 0 }}
                   animate={{ width: 48 }}
-                  transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    duration: 1,
+                    delay: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 />
-                <span className="text-xs md:text-sm font-medium uppercase tracking-[0.25em] text-accent-gold/90">
+                <span className="text-xs font-medium uppercase tracking-[0.25em] text-accent-gold/90 md:text-sm">
                   Building Excellence Since 2015
                 </span>
               </motion.div>
@@ -556,10 +650,10 @@ export function Hero() {
                 <span className="block font-display text-[clamp(2.5rem,8vw,6rem)] font-bold leading-[1] tracking-tight text-brand-white">
                   <AnimatedHeadline delay={0.5}>Crafting</AnimatedHeadline>
                 </span>
-                <span className="block font-display text-[clamp(2.5rem,8vw,6rem)] font-bold leading-[1] tracking-tight mt-1">
+                <span className="mt-1 block font-display text-[clamp(2.5rem,8vw,6rem)] font-bold leading-[1] tracking-tight">
                   <RotatingWords />
                 </span>
-                <span className="block font-display text-[clamp(2.5rem,8vw,6rem)] font-bold leading-[1] tracking-tight text-brand-white/80 mt-1">
+                <span className="mt-1 block font-display text-[clamp(2.5rem,8vw,6rem)] font-bold leading-[1] tracking-tight text-brand-white/80">
                   <AnimatedHeadline delay={0.7}>Spaces</AnimatedHeadline>
                 </span>
               </h1>
@@ -568,12 +662,17 @@ export function Hero() {
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-8 max-w-xl text-base md:text-lg leading-relaxed text-brand-silver/80"
+                transition={{
+                  duration: 0.8,
+                  delay: 1.2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="mt-8 max-w-xl text-base leading-relaxed text-brand-silver/80 md:text-lg"
               >
                 Where architectural vision meets construction excellence.
-                <span className="block mt-2 text-brand-silver/60">
-                  Delivering landmark projects across Australia with precision and purpose.
+                <span className="mt-2 block">
+                  Delivering landmark projects across Australia with precision
+                  and purpose.
                 </span>
               </motion.p>
 
@@ -581,8 +680,12 @@ export function Hero() {
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6"
+                transition={{
+                  duration: 0.8,
+                  delay: 1.4,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6"
               >
                 <Button href="/projects" variant="primary" size="lg" showArrow>
                   View Our Portfolio
@@ -612,7 +715,7 @@ export function Hero() {
           <div className="container-wide py-6 md:py-8">
             <div className="flex items-end justify-between">
               {/* Stats with architectural styling */}
-              <div className="hidden lg:flex items-end gap-12">
+              <div className="hidden items-end gap-12 lg:flex">
                 {[
                   { value: '150', suffix: '+', label: 'Projects Completed' },
                   { value: '25', suffix: '+', label: 'Years of Excellence' },
@@ -627,17 +730,17 @@ export function Hero() {
                   >
                     {/* Vertical line accent */}
                     <motion.div
-                      className="absolute -left-4 top-0 bottom-0 w-px bg-accent-gold/30"
+                      className="absolute -left-4 bottom-0 top-0 w-px bg-accent-gold/30"
                       initial={{ scaleY: 0 }}
                       animate={{ scaleY: 1 }}
                       transition={{ duration: 0.5, delay: 2.2 + index * 0.15 }}
                       style={{ transformOrigin: 'bottom' }}
                     />
-                    <div className="font-display text-3xl md:text-4xl font-bold text-brand-white group-hover:text-accent-gold transition-colors duration-300">
+                    <div className="font-display text-3xl font-bold text-brand-white transition-colors duration-300 group-hover:text-accent-gold md:text-4xl">
                       {stat.value}
                       <span className="text-accent-gold">{stat.suffix}</span>
                     </div>
-                    <div className="mt-1 text-[10px] md:text-xs uppercase tracking-wider text-brand-silver/60">
+                    <div className="mt-1 text-[10px] uppercase tracking-wider text-brand-silver/60 md:text-xs">
                       {stat.label}
                     </div>
                   </motion.div>
@@ -645,12 +748,12 @@ export function Hero() {
               </div>
 
               {/* Right side controls */}
-              <div className="flex items-center gap-6 ml-auto">
+              <div className="ml-auto flex items-center gap-6">
                 {/* Video Controls */}
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setIsVideoPlaying(!isVideoPlaying)}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver transition-all hover:border-accent-gold hover:text-accent-gold backdrop-blur-sm"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver backdrop-blur-sm transition-all hover:border-accent-gold hover:text-accent-gold"
                     aria-label={isVideoPlaying ? 'Pause video' : 'Play video'}
                   >
                     {isVideoPlaying ? (
@@ -661,7 +764,7 @@ export function Hero() {
                   </button>
                   <button
                     onClick={() => setIsMuted(!isMuted)}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver transition-all hover:border-accent-gold hover:text-accent-gold backdrop-blur-sm"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver backdrop-blur-sm transition-all hover:border-accent-gold hover:text-accent-gold"
                     aria-label={isMuted ? 'Unmute' : 'Mute'}
                   >
                     {isMuted ? (
@@ -676,16 +779,24 @@ export function Hero() {
                 <motion.div
                   className="flex items-center gap-3 text-brand-silver"
                   animate={{ y: [0, 4, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
                 >
-                  <span className="hidden text-[10px] uppercase tracking-[0.2em] sm:inline text-brand-silver/60">
+                  <span className="hidden text-[10px] uppercase tracking-[0.2em] text-brand-silver/60 sm:inline">
                     Scroll
                   </span>
                   <div className="flex h-14 w-7 items-start justify-center rounded-full border border-white/20 p-2 backdrop-blur-sm">
                     <motion.div
                       className="h-2 w-1 rounded-full bg-accent-gold"
                       animate={{ y: [0, 16, 0] }}
-                      transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                      transition={{
+                        duration: 1.8,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      }}
                     />
                   </div>
                 </motion.div>

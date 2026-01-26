@@ -49,7 +49,7 @@ export function Marquee({
 
 // Text marquee for headlines
 interface TextMarqueeProps {
-  text: string
+  text: string | string[]
   separator?: string
   className?: string
   textClassName?: string
@@ -63,14 +63,21 @@ export function TextMarquee({
   textClassName,
   speed = 20,
 }: TextMarqueeProps) {
+  const phrases = Array.isArray(text) ? text : [text]
+
   const content = (
     <>
-      {[...Array(5)].map((_, i) => (
-        <span key={i} className="flex items-center gap-8">
-          <span className={textClassName}>{text}</span>
-          <span className="text-accent-gold">{separator}</span>
-        </span>
-      ))}
+      {[...Array(3)].map((_, repeatIndex) =>
+        phrases.map((phrase, phraseIndex) => (
+          <span
+            key={`${repeatIndex}-${phraseIndex}`}
+            className="flex items-center gap-8"
+          >
+            <span className={textClassName}>{phrase}</span>
+            <span className="text-accent-gold">{separator}</span>
+          </span>
+        ))
+      )}
     </>
   )
 

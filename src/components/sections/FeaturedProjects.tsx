@@ -10,7 +10,13 @@ import { getCategoryLabel } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 
 // Large featured project card with parallax - Foster+Partners inspired
-function FeaturedCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function FeaturedCard({
+  project,
+  index,
+}: {
+  project: (typeof projects)[0]
+  index: number
+}) {
   const cardRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: cardRef,
@@ -19,7 +25,11 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
   const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.15])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.7, 1],
+    [0, 1, 1, 0]
+  )
 
   return (
     <motion.article
@@ -35,7 +45,10 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
       <Link href={`/projects/${project.slug}`} className="block">
         <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[21/9]">
           {/* Parallax Image with scale effect */}
-          <motion.div className="absolute inset-[-20%] h-[140%] w-[140%]" style={{ y, scale: imageScale }}>
+          <motion.div
+            className="absolute inset-[-20%] h-[140%] w-[140%]"
+            style={{ y, scale: imageScale }}
+          >
             <Image
               src={project.images[0]?.url || ''}
               alt={project.title}
@@ -67,7 +80,11 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 viewport={{ once: true }}
                 className="mb-6 flex items-center gap-6"
               >
@@ -95,16 +112,32 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
                 <span className="bg-accent-gold px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-brand-black">
                   {getCategoryLabel(project.category)}
                 </span>
-                <span className="text-sm text-brand-silver">{project.location}</span>
+                <span className="text-sm text-brand-silver">
+                  {project.location}
+                </span>
                 <span className="h-1 w-1 rounded-full bg-accent-gold/60" />
-                <span className="text-sm text-brand-silver">{project.year}</span>
+                <span className="text-sm text-brand-silver">
+                  {project.year}
+                </span>
               </motion.div>
 
               {/* Title with clip-path reveal */}
               <motion.h3
-                initial={{ opacity: 0, y: 30, clipPath: 'inset(100% 0% 0% 0%)' }}
-                whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)' }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                  clipPath: 'inset(100% 0% 0% 0%)',
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  clipPath: 'inset(0% 0% 0% 0%)',
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.4,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 viewport={{ once: true }}
                 className="mt-5 font-display text-3xl font-bold text-brand-white md:text-4xl lg:text-5xl xl:text-6xl"
               >
@@ -117,7 +150,7 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 viewport={{ once: true }}
-                className="mt-5 max-w-lg text-brand-silver/90 md:text-lg leading-relaxed"
+                className="mt-5 max-w-lg leading-relaxed text-brand-silver/90 md:text-lg"
               >
                 {project.description}
               </motion.p>
@@ -174,9 +207,9 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
             <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-accent-gold to-transparent" />
             <div className="absolute right-0 top-0 h-px w-full bg-gradient-to-l from-accent-gold to-transparent" />
           </div>
-          <div className="absolute left-8 bottom-8 h-20 w-20 opacity-0 transition-all duration-700 delay-100 group-hover:opacity-100 hidden lg:block">
-            <div className="absolute left-0 bottom-0 h-full w-px bg-gradient-to-t from-white/40 to-transparent" />
-            <div className="absolute left-0 bottom-0 h-px w-full bg-gradient-to-r from-white/40 to-transparent" />
+          <div className="absolute bottom-8 left-8 hidden h-20 w-20 opacity-0 transition-all delay-100 duration-700 group-hover:opacity-100 lg:block">
+            <div className="absolute bottom-0 left-0 h-full w-px bg-gradient-to-t from-white/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-white/40 to-transparent" />
           </div>
 
           {/* Floating corner icon */}
@@ -193,7 +226,13 @@ function FeaturedCard({ project, index }: { project: typeof projects[0]; index: 
 }
 
 // Smaller project card with SOM-inspired hover effects
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: (typeof projects)[0]
+  index: number
+}) {
   return (
     <motion.article
       initial={{ opacity: 0, y: 40 }}
@@ -212,7 +251,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               src={project.images[0]?.url || ''}
               alt={project.title}
               fill
-              className="object-cover transition-all duration-700 grayscale group-hover:grayscale-0"
+              className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
             />
           </div>
 
@@ -220,16 +259,14 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
           {/* Category tag - slides in from top */}
-          <motion.div
-            className="absolute left-4 top-4 -translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
-          >
+          <motion.div className="absolute left-4 top-4 -translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
             <span className="bg-accent-gold px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-brand-black">
               {getCategoryLabel(project.category)}
             </span>
           </motion.div>
 
           {/* Content overlay - slides up on hover */}
-          <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0">
+          <div className="absolute inset-x-0 bottom-0 translate-y-full p-6 transition-transform duration-500 ease-out group-hover:translate-y-0">
             <h3 className="font-display text-xl font-bold text-brand-white">
               {project.title}
             </h3>
@@ -240,7 +277,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             </div>
             <div className="mt-4 inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-accent-gold">
               View Project
-              <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </div>
           </div>
 
@@ -249,7 +286,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             <div className="absolute right-0 top-0 h-full w-px bg-accent-gold/60" />
             <div className="absolute right-0 top-0 h-px w-full bg-accent-gold/60" />
           </div>
-          <div className="absolute bottom-4 left-4 h-8 w-8 opacity-0 transition-all duration-500 delay-75 group-hover:opacity-100">
+          <div className="absolute bottom-4 left-4 h-8 w-8 opacity-0 transition-all delay-75 duration-500 group-hover:opacity-100">
             <div className="absolute bottom-0 left-0 h-full w-px bg-white/40" />
             <div className="absolute bottom-0 left-0 h-px w-full bg-white/40" />
           </div>
@@ -306,7 +343,11 @@ export function FeaturedProjects() {
               <motion.h2
                 initial={{ y: '100%' }}
                 whileInView={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 viewport={{ once: true }}
                 className="font-display text-display-sm font-bold text-brand-black md:text-display-md lg:text-display-lg"
               >
@@ -320,7 +361,7 @@ export function FeaturedProjects() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="mt-6 text-lg text-brand-gray leading-relaxed"
+              className="mt-6 text-lg leading-relaxed text-brand-gray"
             >
               Each project represents our unwavering commitment to quality,
               innovation, and client satisfaction.
@@ -338,7 +379,7 @@ export function FeaturedProjects() {
                 { value: '150+', label: 'Projects' },
                 { value: '$500M+', label: 'Value Delivered' },
                 { value: '100%', label: 'Satisfaction' },
-              ].map((stat, i) => (
+              ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="font-display text-2xl font-bold text-brand-black">
                     {stat.value}

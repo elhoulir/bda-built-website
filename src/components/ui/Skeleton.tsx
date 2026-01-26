@@ -41,29 +41,3 @@ export function ProjectCardSkeleton() {
     </div>
   )
 }
-
-export function TextSkeleton({ lines = 3 }: { lines?: number }) {
-  return (
-    <div className="space-y-2">
-      {Array.from({ length: lines }).map((_, i) => (
-        <Skeleton
-          key={i}
-          className={cn(
-            'h-4',
-            i === lines - 1 ? 'w-2/3' : 'w-full'
-          )}
-        />
-      ))}
-    </div>
-  )
-}
-
-export function CardSkeleton() {
-  return (
-    <div className="p-6 border border-brand-light dark:border-brand-charcoal">
-      <Skeleton className="h-12 w-12 mb-4" />
-      <Skeleton className="h-6 w-1/2 mb-3" />
-      <TextSkeleton lines={2} />
-    </div>
-  )
-}

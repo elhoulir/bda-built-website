@@ -1,17 +1,23 @@
 import type { Metadata } from 'next'
 import { Inter, Outfit } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import { Navigation } from '@/components/layout/Navigation'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScrollProvider } from '@/components/providers/SmoothScroll'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { ReducedMotionProvider } from '@/components/providers/ReducedMotion'
-import { CustomCursor } from '@/components/ui/CustomCursor'
 import { Preloader } from '@/components/ui/Preloader'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { BackToTop } from '@/components/ui/BackToTop'
 import { ToastProvider } from '@/components/ui/Toast'
 import { SkipToContent } from '@/components/ui/SkipToContent'
+
+// Dynamic import CustomCursor with no SSR to prevent hydration mismatch on touch devices
+const CustomCursor = dynamic(
+  () => import('@/components/ui/CustomCursor').then((mod) => mod.CustomCursor),
+  { ssr: false }
+)
 
 const inter = Inter({
   subsets: ['latin'],
@@ -59,8 +65,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
-      <body className="font-sans bg-brand-white dark:bg-brand-black text-brand-black dark:text-brand-white transition-colors duration-300">
+    <html
+      lang="en"
+      className={`${inter.variable} ${outfit.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Inline script to set theme before hydration to prevent FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  if (!theme) {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  }
+                  document.documentElement.classList.add(theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="bg-brand-white font-sans text-brand-black transition-colors duration-300 dark:bg-brand-black dark:text-brand-white">
         <ThemeProvider>
           <ReducedMotionProvider>
             <ToastProvider>

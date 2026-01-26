@@ -5,7 +5,10 @@ import { Stats } from '@/components/sections/Stats'
 import { ServicesOverview } from '@/components/sections/ServicesOverview'
 import { DraggableTestimonials } from '@/components/sections/DraggableTestimonials'
 import { ClientLogos } from '@/components/sections/ClientLogos'
-import { MarqueeBanner, MarqueeBannerLight } from '@/components/sections/MarqueeBanner'
+import {
+  MarqueeBanner,
+  MarqueeBannerLight,
+} from '@/components/sections/MarqueeBanner'
 import { CTA } from '@/components/sections/CTA'
 import {
   ParallaxImage,
@@ -19,10 +22,10 @@ export default function HomePage() {
       <MarqueeBanner />
       <ScrollStory />
 
-      {/* Full-bleed parallax image - architectural detail */}
+      {/* Architectural transition image */}
       <ParallaxImage
-        src="https://images.unsplash.com/photo-1470723710355-95304d8aece4?w=1920&fit=crop&q=80"
-        alt="Modern architectural facade"
+        src="https://images.unsplash.com/photo-1448630360428-65456885c650?w=1920&fit=crop&q=80"
+        alt="Modern high-rise building looking up"
         height="h-[60vh]"
       />
 

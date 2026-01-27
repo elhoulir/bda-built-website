@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface PageTransitionProps {
   children: React.ReactNode
@@ -10,6 +10,15 @@ interface PageTransitionProps {
 
 export function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname()
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect mobile for smoother animations
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Scroll to top on route change - with slight delay to let transition start
   useEffect(() => {
@@ -21,6 +30,12 @@ export function PageTransition({ children }: PageTransitionProps) {
     return () => clearTimeout(timeout)
   }, [pathname])
 
+  // Smoother, longer durations for mobile
+  const overlayDuration = isMobile ? 0.7 : 0.5
+  const accentDuration = isMobile ? 1.0 : 0.8
+  const contentDuration = isMobile ? 0.6 : 0.4
+  const contentDelay = isMobile ? 0.4 : 0.3
+
   return (
     <div>
       {/* Reveal overlay - covers screen then slides away */}
@@ -30,8 +45,8 @@ export function PageTransition({ children }: PageTransitionProps) {
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         transition={{
-          duration: 0.5,
-          ease: [0.76, 0, 0.24, 1],
+          duration: overlayDuration,
+          ease: [0.22, 1, 0.36, 1], // Smoother ease-out curve
         }}
         style={{ transformOrigin: 'top' }}
       />
@@ -43,22 +58,22 @@ export function PageTransition({ children }: PageTransitionProps) {
         initial={{ scaleX: 0 }}
         animate={{ scaleX: [0, 1, 1, 0] }}
         transition={{
-          duration: 0.8,
-          ease: [0.76, 0, 0.24, 1],
+          duration: accentDuration,
+          ease: [0.22, 1, 0.36, 1],
           times: [0, 0.4, 0.6, 1],
         }}
         style={{ transformOrigin: 'left' }}
       />
 
-      {/* Page content with fade in */}
+      {/* Page content with fade and subtle slide up */}
       <motion.div
         key={`content-${pathname}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: isMobile ? 20 : 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
-          duration: 0.4,
-          delay: 0.3,
-          ease: 'easeOut',
+          duration: contentDuration,
+          delay: contentDelay,
+          ease: [0.22, 1, 0.36, 1],
         }}
       >
         {children}

@@ -1,7 +1,12 @@
 'use client'
 
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion'
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  AnimatePresence,
+} from 'framer-motion'
 
 type CursorVariant = 'default' | 'hover' | 'text' | 'view' | 'drag' | 'hidden'
 
@@ -26,14 +31,17 @@ export function CustomCursor() {
   const ringX = useSpring(mouseX, ringConfig)
   const ringY = useSpring(mouseY, ringConfig)
 
-  const updateCursor = useCallback((e: MouseEvent) => {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    rafRef.current = requestAnimationFrame(() => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
-      if (!isVisible) setIsVisible(true)
-    })
-  }, [mouseX, mouseY, isVisible])
+  const updateCursor = useCallback(
+    (e: MouseEvent) => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = requestAnimationFrame(() => {
+        mouseX.set(e.clientX)
+        mouseY.set(e.clientY)
+        if (!isVisible) setIsVisible(true)
+      })
+    },
+    [mouseX, mouseY, isVisible]
+  )
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => updateCursor(e)
@@ -55,7 +63,8 @@ export function CustomCursor() {
       // Check for interactive elements
       const isLink = target.tagName === 'A' || target.closest('a')
       const isButton = target.tagName === 'BUTTON' || target.closest('button')
-      const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA'
+      const isInput =
+        target.tagName === 'INPUT' || target.tagName === 'TEXTAREA'
       const isImage = target.closest('[data-image]')
 
       if (isInput) {
@@ -99,8 +108,14 @@ export function CustomCursor() {
       document.removeEventListener('mouseout', handleMouseOut)
       document.removeEventListener('mousedown', handleMouseDown)
       document.removeEventListener('mouseup', handleMouseUp)
-      document.documentElement.removeEventListener('mouseleave', handleMouseLeave)
-      document.documentElement.removeEventListener('mouseenter', handleMouseEnter)
+      document.documentElement.removeEventListener(
+        'mouseleave',
+        handleMouseLeave
+      )
+      document.documentElement.removeEventListener(
+        'mouseenter',
+        handleMouseEnter
+      )
     }
   }, [updateCursor])
 
@@ -149,7 +164,7 @@ export function CustomCursor() {
           }}
         >
           <AnimatePresence mode="wait">
-            {(variant === 'view' || cursorText) ? (
+            {variant === 'view' || cursorText ? (
               <motion.div
                 key="text-cursor"
                 initial={{ scale: 0, opacity: 0 }}

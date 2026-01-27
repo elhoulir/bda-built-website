@@ -3,7 +3,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Building2, Warehouse, Store, Heart, RefreshCw, Home } from 'lucide-react'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  Warehouse,
+  Store,
+  Heart,
+  RefreshCw,
+  Home,
+} from 'lucide-react'
 import { Service } from '@/types'
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -21,7 +30,11 @@ interface ServiceCardProps {
   variant?: 'default' | 'featured'
 }
 
-export function ServiceCard({ service, index = 0, variant = 'default' }: ServiceCardProps) {
+export function ServiceCard({
+  service,
+  index = 0,
+  variant = 'default',
+}: ServiceCardProps) {
   const Icon = iconMap[service.icon] || Building2
 
   if (variant === 'featured') {
@@ -57,9 +70,9 @@ export function ServiceCard({ service, index = 0, variant = 'default' }: Service
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-between p-6">
               {/* Top - Icon and number */}
-              <div className="flex justify-between items-start">
+              <div className="flex items-start justify-between">
                 <motion.div
-                  className="flex h-14 w-14 items-center justify-center border border-white/20 bg-white/5 backdrop-blur-sm text-white transition-all duration-500 group-hover:border-accent-gold/50 group-hover:bg-accent-gold/10"
+                  className="flex h-14 w-14 items-center justify-center border border-white/20 bg-white/5 text-white backdrop-blur-sm transition-all duration-500 group-hover:border-accent-gold/50 group-hover:bg-accent-gold/10"
                   whileHover={{ scale: 1.1 }}
                 >
                   <Icon className="h-6 w-6" />
@@ -76,14 +89,12 @@ export function ServiceCard({ service, index = 0, variant = 'default' }: Service
                 </h3>
 
                 {/* Description - reveals on hover */}
-                <motion.p
-                  className="mt-3 text-sm text-brand-silver/80 opacity-0 max-h-0 overflow-hidden transition-all duration-500 group-hover:opacity-100 group-hover:max-h-24"
-                >
+                <motion.p className="mt-3 max-h-0 overflow-hidden text-sm text-brand-silver/80 opacity-0 transition-all duration-500 group-hover:max-h-24 group-hover:opacity-100">
                   {service.description}
                 </motion.p>
 
                 {/* Features - reveal on hover */}
-                <ul className="mt-4 space-y-2 opacity-0 max-h-0 overflow-hidden transition-all duration-500 delay-75 group-hover:opacity-100 group-hover:max-h-32">
+                <ul className="mt-4 max-h-0 space-y-2 overflow-hidden opacity-0 transition-all delay-75 duration-500 group-hover:max-h-32 group-hover:opacity-100">
                   {service.features.slice(0, 3).map((feature) => (
                     <li
                       key={feature}
@@ -96,12 +107,10 @@ export function ServiceCard({ service, index = 0, variant = 'default' }: Service
                 </ul>
 
                 {/* CTA - reveals on hover */}
-                <motion.div
-                  className="mt-6 opacity-0 translate-y-4 transition-all duration-500 delay-100 group-hover:opacity-100 group-hover:translate-y-0"
-                >
+                <motion.div className="mt-6 translate-y-4 opacity-0 transition-all delay-100 duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                   <span className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-accent-gold">
                     Learn More
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                   </span>
                 </motion.div>
               </div>
@@ -148,7 +157,7 @@ export function ServiceCard({ service, index = 0, variant = 'default' }: Service
           </div>
 
           {/* Hover overlay content */}
-          <div className="absolute inset-x-0 bottom-0 p-5 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="absolute inset-x-0 bottom-0 translate-y-4 p-5 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
             <span className="inline-flex items-center gap-2 bg-brand-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-brand-black">
               Explore
               <ArrowUpRight className="h-3 w-3" />

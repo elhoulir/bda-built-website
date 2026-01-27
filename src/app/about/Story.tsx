@@ -32,21 +32,22 @@ export function Story() {
             </h2>
             <div className="mt-8 space-y-6 text-brand-slate">
               <p className="leading-relaxed">
-                BDA Built was founded with a simple vision: to deliver commercial
-                construction that exceeds expectations. What started as a small team
-                with big ambitions has grown into a respected name in the Australian
-                construction industry.
+                BDA Built was founded with a simple vision: to deliver
+                commercial construction that exceeds expectations. What started
+                as a small team with big ambitions has grown into a respected
+                name in the Australian construction industry.
               </p>
               <p className="leading-relaxed">
-                Our founder, David Anderson, brought over two decades of industry
-                experience and a belief that quality should never be compromised. This
-                principle continues to guide every project we undertake.
+                Our founder, David Anderson, brought over two decades of
+                industry experience and a belief that quality should never be
+                compromised. This principle continues to guide every project we
+                undertake.
               </p>
               <p className="leading-relaxed">
-                Today, we&apos;re proud to have completed over 150 projects across
-                commercial, industrial, retail, healthcare, and education sectors.
-                Each project represents our commitment to craftsmanship and our
-                clients&apos; trust in our capabilities.
+                Today, we&apos;re proud to have completed over 150 projects
+                across commercial, industrial, retail, healthcare, and education
+                sectors. Each project represents our commitment to craftsmanship
+                and our clients&apos; trust in our capabilities.
               </p>
             </div>
           </motion.div>

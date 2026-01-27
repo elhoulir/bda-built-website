@@ -77,9 +77,7 @@ export function ProcessCTA() {
               <div className="font-display text-4xl font-bold text-brand-white">
                 25<span className="text-accent-gold">+</span>
               </div>
-              <p className="mt-2 text-sm text-brand-silver">
-                Years Experience
-              </p>
+              <p className="mt-2 text-sm text-brand-silver">Years Experience</p>
             </div>
           </motion.div>
         </div>

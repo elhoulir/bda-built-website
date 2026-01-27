@@ -17,15 +17,25 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb" className={cn('flex items-center', className)}>
-      <ol className="flex items-center gap-2 text-sm" itemScope itemType="https://schema.org/BreadcrumbList">
-        <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+      <ol
+        className="flex items-center gap-2 text-sm"
+        itemScope
+        itemType="https://schema.org/BreadcrumbList"
+      >
+        <li
+          itemProp="itemListElement"
+          itemScope
+          itemType="https://schema.org/ListItem"
+        >
           <Link
             href="/"
-            className="flex items-center text-brand-gray hover:text-brand-black dark:hover:text-brand-white transition-colors"
+            className="flex items-center text-brand-gray transition-colors hover:text-brand-black dark:hover:text-brand-white"
             itemProp="item"
           >
             <Home className="h-4 w-4" />
-            <span className="sr-only" itemProp="name">Home</span>
+            <span className="sr-only" itemProp="name">
+              Home
+            </span>
           </Link>
           <meta itemProp="position" content="1" />
         </li>
@@ -38,18 +48,21 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
             itemScope
             itemType="https://schema.org/ListItem"
           >
-            <ChevronRight className="h-4 w-4 text-brand-gray/50" aria-hidden="true" />
+            <ChevronRight
+              className="h-4 w-4 text-brand-gray/50"
+              aria-hidden="true"
+            />
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-brand-gray hover:text-brand-black dark:hover:text-brand-white transition-colors"
+                className="text-brand-gray transition-colors hover:text-brand-black dark:hover:text-brand-white"
                 itemProp="item"
               >
                 <span itemProp="name">{item.label}</span>
               </Link>
             ) : (
               <span
-                className="text-brand-charcoal dark:text-brand-light font-medium"
+                className="font-medium text-brand-charcoal dark:text-brand-light"
                 itemProp="name"
                 aria-current="page"
               >

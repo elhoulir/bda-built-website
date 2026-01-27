@@ -37,7 +37,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                 { label: 'Projects', href: '/projects' },
                 { label: project.title },
               ]}
-              className="[&_a]:text-brand-silver [&_a:hover]:text-brand-white [&_span[aria-current]]:text-brand-white [&_svg]:text-brand-gray/50"
+              className="[&_a:hover]:text-brand-white [&_a]:text-brand-silver [&_span[aria-current]]:text-brand-white [&_svg]:text-brand-gray/50"
             />
           </motion.div>
 
@@ -135,7 +135,12 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                   </h3>
                   <p className="mt-2 text-brand-black">{project.year}</p>
                 </div>
-                <Button href="/contact" variant="primary" showArrow className="mt-8">
+                <Button
+                  href="/contact"
+                  variant="primary"
+                  showArrow
+                  className="mt-8"
+                >
                   Start Your Project
                 </Button>
               </div>
@@ -197,14 +202,14 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
       {/* Image Gallery - Elegant staggered layout */}
       {project.images.length > 1 && (
-        <section className="bg-brand-cream py-24 md:py-32 overflow-hidden">
+        <section className="overflow-hidden bg-brand-cream py-24 md:py-32">
           <div className="container-wide">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex items-center gap-4 mb-12"
+              className="mb-12 flex items-center gap-4"
             >
               <div className="h-px w-12 bg-brand-slate" />
               <span className="text-xs font-medium uppercase tracking-[0.25em] text-brand-gray">
@@ -227,7 +232,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8 }}
                       viewport={{ once: true }}
-                      className="relative aspect-[21/9] overflow-hidden group"
+                      className="group relative aspect-[21/9] overflow-hidden"
                     >
                       <Image
                         src={image.url}
@@ -235,7 +240,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     </motion.div>
                   )
                 }
@@ -244,13 +249,13 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                 const nextImage = project.images.slice(1)[index + 1]
                 if (isLeft && nextImage) {
                   return (
-                    <div key={index} className="grid md:grid-cols-2 gap-8">
+                    <div key={index} className="grid gap-8 md:grid-cols-2">
                       <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="relative aspect-[4/3] overflow-hidden group"
+                        className="group relative aspect-[4/3] overflow-hidden"
                       >
                         <Image
                           src={image.url}
@@ -264,7 +269,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.1 }}
                         viewport={{ once: true }}
-                        className="relative aspect-[4/3] overflow-hidden group md:mt-16"
+                        className="group relative aspect-[4/3] overflow-hidden md:mt-16"
                       >
                         <Image
                           src={nextImage.url}
@@ -290,7 +295,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className={`relative aspect-[4/3] overflow-hidden group ${isLeft ? 'md:w-2/3' : 'md:w-2/3 md:ml-auto'}`}
+                    className={`group relative aspect-[4/3] overflow-hidden ${isLeft ? 'md:w-2/3' : 'md:ml-auto md:w-2/3'}`}
                   >
                     <Image
                       src={image.url}

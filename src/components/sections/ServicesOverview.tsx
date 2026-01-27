@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/Button'
 
 export function ServicesOverview() {
   return (
-    <section className="relative bg-brand-cream py-24 md:py-32 overflow-hidden">
+    <section className="relative overflow-hidden bg-brand-cream py-24 md:py-32">
       {/* Subtle architectural background elements */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute right-0 top-0 w-px h-full bg-gradient-to-b from-transparent via-brand-slate/10 to-transparent"
+          className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-brand-slate/10 to-transparent"
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           transition={{ duration: 1.5 }}
@@ -19,7 +19,7 @@ export function ServicesOverview() {
           style={{ right: '15%' }}
         />
         <motion.div
-          className="absolute left-0 bottom-0 h-px w-full bg-gradient-to-r from-transparent via-brand-slate/10 to-transparent"
+          className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-brand-slate/10 to-transparent"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 1.5, delay: 0.3 }}
@@ -56,7 +56,11 @@ export function ServicesOverview() {
               <motion.h2
                 initial={{ y: '100%' }}
                 whileInView={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 viewport={{ once: true }}
                 className="font-display text-display-sm font-bold text-brand-black md:text-display-md"
               >
@@ -70,7 +74,7 @@ export function ServicesOverview() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="mt-6 text-lg text-brand-gray leading-relaxed"
+              className="mt-6 text-lg leading-relaxed text-brand-gray"
             >
               From ground-up construction to complete refurbishments, we deliver
               across all commercial sectors with precision and purpose.

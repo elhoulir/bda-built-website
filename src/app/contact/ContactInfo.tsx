@@ -44,7 +44,9 @@ export function ContactInfo() {
               <p className="text-sm font-medium uppercase tracking-wider text-brand-gray">
                 Email
               </p>
-              <p className="mt-1 text-lg text-brand-black">info@bdabuilt.com.au</p>
+              <p className="mt-1 text-lg text-brand-black">
+                info@bdabuilt.com.au
+              </p>
             </div>
           </a>
 

@@ -3,7 +3,11 @@
 import { useEffect, useRef } from 'react'
 import Lenis from 'lenis'
 
-export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
+export function SmoothScrollProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const lenisRef = useRef<Lenis | null>(null)
 
   useEffect(() => {

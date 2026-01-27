@@ -24,9 +24,7 @@ export function StatCard({ stat, index = 0, dark = false }: StatCardProps) {
         }`}
       >
         {stat.value}
-        {stat.suffix && (
-          <span className="text-accent-gold">{stat.suffix}</span>
-        )}
+        {stat.suffix && <span className="text-accent-gold">{stat.suffix}</span>}
       </div>
       <p
         className={`mt-2 text-sm uppercase tracking-wider ${

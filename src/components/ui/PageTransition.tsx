@@ -26,7 +26,7 @@ export function PageTransition({ children }: PageTransitionProps) {
       {/* Reveal overlay - covers screen then slides away */}
       <motion.div
         key={`overlay-${pathname}`}
-        className="fixed inset-0 z-[100] bg-brand-black pointer-events-none"
+        className="pointer-events-none fixed inset-0 z-[100] bg-brand-black"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         transition={{
@@ -39,7 +39,7 @@ export function PageTransition({ children }: PageTransitionProps) {
       {/* Gold accent line that sweeps across */}
       <motion.div
         key={`accent-${pathname}`}
-        className="fixed top-0 left-0 right-0 h-1 z-[101] bg-accent-gold pointer-events-none"
+        className="pointer-events-none fixed left-0 right-0 top-0 z-[101] h-1 bg-accent-gold"
         initial={{ scaleX: 0 }}
         animate={{ scaleX: [0, 1, 1, 0] }}
         transition={{

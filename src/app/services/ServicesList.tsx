@@ -2,7 +2,15 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Building2, Warehouse, Store, Heart, RefreshCw, Home, Check } from 'lucide-react'
+import {
+  Building2,
+  Warehouse,
+  Store,
+  Heart,
+  RefreshCw,
+  Home,
+  Check,
+} from 'lucide-react'
 import { services } from '@/lib/data'
 import { Button } from '@/components/ui/Button'
 
@@ -37,7 +45,9 @@ export function ServicesList() {
                 }`}
               >
                 {/* Image */}
-                <div className={`relative ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div
+                  className={`relative ${isEven ? 'lg:order-1' : 'lg:order-2'}`}
+                >
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={service.image}
@@ -64,10 +74,7 @@ export function ServicesList() {
                   {/* Features List */}
                   <ul className="mt-8 space-y-4">
                     {service.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-start gap-3"
-                      >
+                      <li key={feature} className="flex items-start gap-3">
                         <div className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center bg-accent-gold/10">
                           <Check className="h-3 w-3 text-accent-gold" />
                         </div>

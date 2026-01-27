@@ -34,7 +34,8 @@ export function ServicesHero() {
           </h1>
           <p className="mt-8 text-lg leading-relaxed text-brand-silver md:text-xl">
             From initial concept to final handover, we offer a full spectrum of
-            commercial construction services tailored to your unique requirements.
+            commercial construction services tailored to your unique
+            requirements.
           </p>
         </motion.div>
       </div>

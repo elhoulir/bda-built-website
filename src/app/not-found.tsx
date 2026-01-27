@@ -112,8 +112,8 @@ export default function NotFound() {
             Page Not Found
           </h1>
           <p className="mx-auto mt-4 max-w-md text-brand-silver">
-            The page you&apos;re looking for doesn&apos;t exist or has been moved.
-            Let&apos;s get you back on track.
+            The page you&apos;re looking for doesn&apos;t exist or has been
+            moved. Let&apos;s get you back on track.
           </p>
         </motion.div>
 

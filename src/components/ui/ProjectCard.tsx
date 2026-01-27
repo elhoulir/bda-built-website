@@ -14,7 +14,11 @@ interface ProjectCardProps {
   variant?: 'default' | 'featured' | 'minimal'
 }
 
-export function ProjectCard({ project, index = 0, variant = 'default' }: ProjectCardProps) {
+export function ProjectCard({
+  project,
+  index = 0,
+  variant = 'default',
+}: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
 
   // Mouse position for 3D tilt effect
@@ -44,7 +48,9 @@ export function ProjectCard({ project, index = 0, variant = 'default' }: Project
     mouseY.set(0)
   }
 
-  const imageUrl = project.images[0]?.url || `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80`
+  const imageUrl =
+    project.images[0]?.url ||
+    `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80`
 
   return (
     <motion.article
@@ -66,10 +72,12 @@ export function ProjectCard({ project, index = 0, variant = 'default' }: Project
     >
       <Link href={`/projects/${project.slug}`} className="block">
         {/* Image Container */}
-        <div className={cn(
-          "relative overflow-hidden bg-brand-light",
-          variant === 'featured' ? 'aspect-[16/10]' : 'aspect-[4/3]'
-        )}>
+        <div
+          className={cn(
+            'relative overflow-hidden bg-brand-light',
+            variant === 'featured' ? 'aspect-[16/10]' : 'aspect-[4/3]'
+          )}
+        >
           {/* Image with zoom */}
           <motion.div
             className="absolute inset-0"
@@ -104,14 +112,14 @@ export function ProjectCard({ project, index = 0, variant = 'default' }: Project
           <div className="absolute inset-0 flex flex-col justify-end p-6">
             {/* Title - always visible on hover */}
             <motion.h3
-              className="font-display text-xl font-bold text-brand-white opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 md:text-2xl"
+              className="translate-y-4 font-display text-xl font-bold text-brand-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 md:text-2xl"
               style={{ transform: 'translateZ(20px)' }}
             >
               {project.title}
             </motion.h3>
 
             {/* Meta info - revealed on hover */}
-            <div className="mt-3 flex items-center justify-between opacity-0 translate-y-4 transition-all duration-500 delay-75 group-hover:opacity-100 group-hover:translate-y-0">
+            <div className="mt-3 flex translate-y-4 items-center justify-between opacity-0 transition-all delay-75 duration-500 group-hover:translate-y-0 group-hover:opacity-100">
               <div className="flex items-center gap-3 text-sm text-brand-silver">
                 <span>{project.location}</span>
                 <span className="h-1 w-1 rounded-full bg-brand-silver" />
@@ -163,8 +171,13 @@ interface FeaturedProjectCardProps {
   index: number
 }
 
-export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps) {
-  const imageUrl = project.images[0]?.url || `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80`
+export function FeaturedProjectCard({
+  project,
+  index,
+}: FeaturedProjectCardProps) {
+  const imageUrl =
+    project.images[0]?.url ||
+    `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80`
 
   return (
     <motion.article
@@ -213,9 +226,13 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
                 <span className="bg-accent-gold px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-black">
                   {getCategoryLabel(project.category)}
                 </span>
-                <span className="text-sm text-brand-silver">{project.location}</span>
+                <span className="text-sm text-brand-silver">
+                  {project.location}
+                </span>
                 <span className="h-1 w-1 rounded-full bg-brand-silver" />
-                <span className="text-sm text-brand-silver">{project.year}</span>
+                <span className="text-sm text-brand-silver">
+                  {project.year}
+                </span>
               </div>
 
               {/* Title */}
@@ -232,7 +249,7 @@ export function FeaturedProjectCard({ project, index }: FeaturedProjectCardProps
               <div className="mt-8 flex items-center gap-6">
                 <span className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-brand-white transition-colors group-hover:text-accent-gold">
                   Explore Project
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </span>
               </div>
             </div>

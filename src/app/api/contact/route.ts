@@ -80,7 +80,7 @@ This message was sent from the BDA Built website contact form.
       {
         success: true,
         message: 'Form submitted successfully',
-        recipient: RECIPIENT_EMAIL
+        recipient: RECIPIENT_EMAIL,
       },
       { status: 200 }
     )

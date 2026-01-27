@@ -35,9 +35,9 @@ export function AboutHero() {
           </h1>
           <p className="mt-8 text-lg leading-relaxed text-brand-silver md:text-xl">
             We are a team of dedicated professionals passionate about delivering
-            exceptional commercial construction. Our commitment to craftsmanship,
-            integrity, and excellence has made us a trusted partner for businesses
-            across Australia.
+            exceptional commercial construction. Our commitment to
+            craftsmanship, integrity, and excellence has made us a trusted
+            partner for businesses across Australia.
           </p>
         </motion.div>
       </div>

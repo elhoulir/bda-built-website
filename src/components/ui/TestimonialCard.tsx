@@ -9,7 +9,10 @@ interface TestimonialCardProps {
   index?: number
 }
 
-export function TestimonialCard({ testimonial, index = 0 }: TestimonialCardProps) {
+export function TestimonialCard({
+  testimonial,
+  index = 0,
+}: TestimonialCardProps) {
   return (
     <motion.blockquote
       initial={{ opacity: 0, y: 30 }}

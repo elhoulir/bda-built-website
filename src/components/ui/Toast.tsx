@@ -1,6 +1,12 @@
 'use client'
 
-import { useEffect, useState, createContext, useContext, useCallback } from 'react'
+import {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  useCallback,
+} from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, AlertCircle, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -38,10 +44,13 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     setMounted(true)
   }, [])
 
-  const addToast = useCallback((message: string, type: ToastType = 'info', duration = 5000) => {
-    const id = Math.random().toString(36).substring(2, 9)
-    setToasts((prev) => [...prev, { id, message, type, duration }])
-  }, [])
+  const addToast = useCallback(
+    (message: string, type: ToastType = 'info', duration = 5000) => {
+      const id = Math.random().toString(36).substring(2, 9)
+      setToasts((prev) => [...prev, { id, message, type, duration }])
+    },
+    []
+  )
 
   const removeToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id))
@@ -51,10 +60,18 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
       {children}
       {mounted && (
-        <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3" role="region" aria-label="Notifications">
+        <div
+          className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3"
+          role="region"
+          aria-label="Notifications"
+        >
           <AnimatePresence mode="popLayout">
             {toasts.map((toast) => (
-              <ToastItem key={toast.id} toast={toast} onClose={() => removeToast(toast.id)} />
+              <ToastItem
+                key={toast.id}
+                toast={toast}
+                onClose={() => removeToast(toast.id)}
+              />
             ))}
           </AnimatePresence>
         </div>
@@ -88,7 +105,7 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: () => void }) {
       exit={{ opacity: 0, x: 100, scale: 0.95 }}
       transition={{ duration: 0.2 }}
       className={cn(
-        'flex items-start gap-3 min-w-[320px] max-w-[420px] p-4 shadow-lg border',
+        'flex min-w-[320px] max-w-[420px] items-start gap-3 border p-4 shadow-lg',
         'bg-brand-white dark:bg-brand-charcoal',
         toast.type === 'success' && 'border-green-500',
         toast.type === 'error' && 'border-red-500',
@@ -100,7 +117,7 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: () => void }) {
     >
       <Icon
         className={cn(
-          'h-5 w-5 flex-shrink-0 mt-0.5',
+          'mt-0.5 h-5 w-5 flex-shrink-0',
           toast.type === 'success' && 'text-green-500',
           toast.type === 'error' && 'text-red-500',
           toast.type === 'warning' && 'text-amber-500',
@@ -112,7 +129,7 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: () => void }) {
       </p>
       <button
         onClick={onClose}
-        className="flex-shrink-0 text-brand-gray hover:text-brand-black dark:hover:text-brand-white transition-colors"
+        className="flex-shrink-0 text-brand-gray transition-colors hover:text-brand-black dark:hover:text-brand-white"
         aria-label="Dismiss notification"
       >
         <X className="h-4 w-4" />

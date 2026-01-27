@@ -18,11 +18,11 @@ export function CTA() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[70vh] overflow-hidden bg-brand-black flex items-center"
+      className="relative flex min-h-[70vh] items-center overflow-hidden bg-brand-black"
     >
       {/* Background Image with Parallax - City skyline at night */}
       <motion.div
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        className="absolute inset-0 -top-[10%] h-[120%] w-full"
         style={{ y, scale }}
       >
         <Image
@@ -66,8 +66,8 @@ export function CTA() {
             viewport={{ once: true }}
             className="mt-6 text-lg leading-relaxed text-brand-silver"
           >
-            Let&apos;s discuss your vision. Our team is ready to bring your commercial
-            project to life with the quality and care it deserves.
+            Let&apos;s discuss your vision. Our team is ready to bring your
+            commercial project to life with the quality and care it deserves.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -68,10 +68,7 @@ export function ProcessTimeline() {
                         </h4>
                         <ul className="mt-4 space-y-3">
                           {step.details.map((detail) => (
-                            <li
-                              key={detail}
-                              className="flex items-start gap-3"
-                            >
+                            <li key={detail} className="flex items-start gap-3">
                               <div className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center bg-brand-black">
                                 <Check className="h-3 w-3 text-brand-white" />
                               </div>

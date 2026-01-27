@@ -37,7 +37,9 @@ function validatePhone(phone: string): boolean {
 
 export function ContactForm() {
   const { addToast } = useToast()
-  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle')
+  const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>(
+    'idle'
+  )
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -49,29 +51,39 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
 
-  const validateField = useCallback((name: string, value: string): string | undefined => {
-    switch (name) {
-      case 'name':
-        if (!value.trim()) return 'Full name is required'
-        if (value.trim().length < 2) return 'Name must be at least 2 characters'
-        return undefined
-      case 'email':
-        if (!value.trim()) return 'Email address is required'
-        if (!validateEmail(value)) return 'Please enter a valid email address'
-        return undefined
-      case 'phone':
-        if (value && !validatePhone(value)) return 'Please enter a valid phone number'
-        return undefined
-      case 'message':
-        if (!value.trim()) return 'Message is required'
-        if (value.trim().length < 10) return 'Message must be at least 10 characters'
-        return undefined
-      default:
-        return undefined
-    }
-  }, [])
+  const validateField = useCallback(
+    (name: string, value: string): string | undefined => {
+      switch (name) {
+        case 'name':
+          if (!value.trim()) return 'Full name is required'
+          if (value.trim().length < 2)
+            return 'Name must be at least 2 characters'
+          return undefined
+        case 'email':
+          if (!value.trim()) return 'Email address is required'
+          if (!validateEmail(value)) return 'Please enter a valid email address'
+          return undefined
+        case 'phone':
+          if (value && !validatePhone(value))
+            return 'Please enter a valid phone number'
+          return undefined
+        case 'message':
+          if (!value.trim()) return 'Message is required'
+          if (value.trim().length < 10)
+            return 'Message must be at least 10 characters'
+          return undefined
+        default:
+          return undefined
+      }
+    },
+    []
+  )
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleBlur = (
+    e: React.FocusEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target
     setTouched((prev) => ({ ...prev, [name]: true }))
     const error = validateField(name, value)
@@ -129,7 +141,9 @@ export function ContactForm() {
   }
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target
     setFormData((prev) => ({
@@ -144,9 +158,11 @@ export function ContactForm() {
     }
   }
 
-  const inputBaseClasses = "mt-2 w-full border rounded-none bg-white px-4 py-3 text-brand-black transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1"
-  const inputNormalClasses = "border-brand-light focus:border-brand-black focus:ring-brand-black"
-  const inputErrorClasses = "border-red-500 focus:ring-red-500"
+  const inputBaseClasses =
+    'mt-2 w-full border rounded-none bg-white px-4 py-3 text-brand-black transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1'
+  const inputNormalClasses =
+    'border-brand-light focus:border-brand-black focus:ring-brand-black'
+  const inputErrorClasses = 'border-red-500 focus:ring-red-500'
 
   if (formState === 'success') {
     return (
@@ -162,7 +178,8 @@ export function ContactForm() {
           Message Sent
         </h3>
         <p className="mt-4 text-brand-gray">
-          Thank you for reaching out. Our team will get back to you within 24 hours.
+          Thank you for reaching out. Our team will get back to you within 24
+          hours.
         </p>
         <Button
           onClick={() => setFormState('idle')}
@@ -210,12 +227,18 @@ export function ContactForm() {
               aria-describedby={errors.name ? 'name-error' : undefined}
               className={cn(
                 inputBaseClasses,
-                errors.name && touched.name ? inputErrorClasses : inputNormalClasses
+                errors.name && touched.name
+                  ? inputErrorClasses
+                  : inputNormalClasses
               )}
               placeholder="John Smith"
             />
             {errors.name && touched.name && (
-              <p id="name-error" className="mt-1 text-sm text-red-500" role="alert">
+              <p
+                id="name-error"
+                className="mt-1 text-sm text-red-500"
+                role="alert"
+              >
                 {errors.name}
               </p>
             )}
@@ -239,12 +262,18 @@ export function ContactForm() {
               aria-describedby={errors.email ? 'email-error' : undefined}
               className={cn(
                 inputBaseClasses,
-                errors.email && touched.email ? inputErrorClasses : inputNormalClasses
+                errors.email && touched.email
+                  ? inputErrorClasses
+                  : inputNormalClasses
               )}
               placeholder="john@company.com"
             />
             {errors.email && touched.email && (
-              <p id="email-error" className="mt-1 text-sm text-red-500" role="alert">
+              <p
+                id="email-error"
+                className="mt-1 text-sm text-red-500"
+                role="alert"
+              >
                 {errors.email}
               </p>
             )}
@@ -258,7 +287,8 @@ export function ContactForm() {
               htmlFor="phone"
               className="block text-sm font-medium text-brand-charcoal"
             >
-              Phone Number <span className="text-brand-gray font-normal">(optional)</span>
+              Phone Number{' '}
+              <span className="font-normal text-brand-gray">(optional)</span>
             </label>
             <input
               type="tel"
@@ -271,12 +301,18 @@ export function ContactForm() {
               aria-describedby={errors.phone ? 'phone-error' : undefined}
               className={cn(
                 inputBaseClasses,
-                errors.phone && touched.phone ? inputErrorClasses : inputNormalClasses
+                errors.phone && touched.phone
+                  ? inputErrorClasses
+                  : inputNormalClasses
               )}
               placeholder="0400 000 000"
             />
             {errors.phone && touched.phone && (
-              <p id="phone-error" className="mt-1 text-sm text-red-500" role="alert">
+              <p
+                id="phone-error"
+                className="mt-1 text-sm text-red-500"
+                role="alert"
+              >
                 {errors.phone}
               </p>
             )}
@@ -344,13 +380,19 @@ export function ContactForm() {
             aria-describedby={errors.message ? 'message-error' : undefined}
             className={cn(
               inputBaseClasses,
-              "resize-none",
-              errors.message && touched.message ? inputErrorClasses : inputNormalClasses
+              'resize-none',
+              errors.message && touched.message
+                ? inputErrorClasses
+                : inputNormalClasses
             )}
             placeholder="Tell us about your project..."
           />
           {errors.message && touched.message && (
-            <p id="message-error" className="mt-1 text-sm text-red-500" role="alert">
+            <p
+              id="message-error"
+              className="mt-1 text-sm text-red-500"
+              role="alert"
+            >
               {errors.message}
             </p>
           )}

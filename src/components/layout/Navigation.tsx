@@ -4,7 +4,12 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from 'framer-motion'
 import { Menu, X, ArrowUpRight, ChevronDown } from 'lucide-react'
 import { navigation, services } from '@/lib/data'
 import { cn } from '@/lib/utils'
@@ -45,7 +50,7 @@ export function Navigation() {
       <header className="fixed left-0 right-0 top-0 z-50">
         {/* Full-width dark background bar - visible when not scrolled */}
         <motion.div
-          className="absolute inset-0 bg-brand-black/90 backdrop-blur-md border-b border-white/10"
+          className="absolute inset-0 border-b border-white/10 bg-brand-black/90 backdrop-blur-md"
           initial={false}
           animate={{
             opacity: isScrolled ? 0 : 1,
@@ -59,10 +64,10 @@ export function Navigation() {
             <Link
               href="/"
               className={cn(
-                "relative z-10 flex items-center transition-all duration-500 ease-out",
+                'relative z-10 flex items-center transition-all duration-500 ease-out',
                 isScrolled
-                  ? "bg-brand-black/80 backdrop-blur-md shadow-lg rounded-full px-4 py-2 border border-white/10"
-                  : "bg-transparent px-0 py-0"
+                  ? 'rounded-full border border-white/10 bg-brand-black/80 px-4 py-2 shadow-lg backdrop-blur-md'
+                  : 'bg-transparent px-0 py-0'
               )}
             >
               <Image
@@ -71,8 +76,8 @@ export function Navigation() {
                 width={140}
                 height={40}
                 className={cn(
-                  "w-auto transition-all duration-500 ease-out",
-                  isScrolled ? "h-7" : "h-10"
+                  'w-auto transition-all duration-500 ease-out',
+                  isScrolled ? 'h-7' : 'h-10'
                 )}
                 priority
               />
@@ -81,8 +86,8 @@ export function Navigation() {
             {/* Desktop Navigation Links - fade out when scrolled */}
             <div
               className={cn(
-                "hidden items-center gap-8 lg:flex transition-all duration-500 ease-out",
-                isScrolled ? "opacity-0 pointer-events-none" : "opacity-100"
+                'hidden items-center gap-8 transition-all duration-500 ease-out lg:flex',
+                isScrolled ? 'pointer-events-none opacity-0' : 'opacity-100'
               )}
             >
               {navigation.map((item) => (
@@ -91,17 +96,17 @@ export function Navigation() {
                   href={item.href}
                   aria-current={isActive(item.href) ? 'page' : undefined}
                   className={cn(
-                    "relative text-sm font-medium uppercase tracking-wider transition-colors",
+                    'relative text-sm font-medium uppercase tracking-wider transition-colors',
                     isActive(item.href)
-                      ? "text-brand-white"
-                      : "text-brand-silver hover:text-brand-white"
+                      ? 'text-brand-white'
+                      : 'text-brand-silver hover:text-brand-white'
                   )}
                 >
                   {item.label}
                   <span
                     className={cn(
-                      "absolute -bottom-1 left-0 h-0.5 bg-accent-gold transition-all duration-300",
-                      isActive(item.href) ? "w-full" : "w-0"
+                      'absolute -bottom-1 left-0 h-0.5 bg-accent-gold transition-all duration-300',
+                      isActive(item.href) ? 'w-full' : 'w-0'
                     )}
                   />
                 </Link>
@@ -113,7 +118,7 @@ export function Navigation() {
               {/* Enquire button - matches logo styling */}
               <Link
                 href="/contact"
-                className="hidden sm:flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-brand-white bg-brand-black/80 backdrop-blur-md shadow-lg rounded-full px-5 py-3 border border-white/10 hover:bg-brand-black/90 transition-colors"
+                className="hidden items-center gap-2 rounded-full border border-white/10 bg-brand-black/80 px-5 py-3 text-sm font-medium uppercase tracking-wider text-brand-white shadow-lg backdrop-blur-md transition-colors hover:bg-brand-black/90 sm:flex"
               >
                 <span>Enquire</span>
                 <ArrowUpRight className="h-4 w-4" />
@@ -123,17 +128,19 @@ export function Navigation() {
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className={cn(
-                  "flex h-12 w-12 items-center justify-center transition-all duration-500 ease-out text-brand-white",
+                  'flex h-12 w-12 items-center justify-center text-brand-white transition-all duration-500 ease-out',
                   isScrolled
-                    ? "bg-brand-black/80 backdrop-blur-md rounded-full shadow-lg border border-white/10 hover:bg-brand-black/90"
-                    : "bg-transparent hover:bg-white/10 rounded-full lg:hidden"
+                    ? 'rounded-full border border-white/10 bg-brand-black/80 shadow-lg backdrop-blur-md hover:bg-brand-black/90'
+                    : 'rounded-full bg-transparent hover:bg-white/10 lg:hidden'
                 )}
                 aria-label="Open menu"
               >
-                <Menu className={cn(
-                  "transition-all duration-500",
-                  isScrolled ? "h-5 w-5" : "h-6 w-6"
-                )} />
+                <Menu
+                  className={cn(
+                    'transition-all duration-500',
+                    isScrolled ? 'h-5 w-5' : 'h-6 w-6'
+                  )}
+                />
               </button>
             </div>
           </nav>
@@ -159,14 +166,18 @@ export function Navigation() {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-              className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-brand-black/95 backdrop-blur-xl shadow-2xl overflow-y-auto border-l border-white/10"
+              transition={{
+                type: 'tween',
+                duration: 0.4,
+                ease: [0.32, 0.72, 0, 1],
+              }}
+              className="fixed bottom-0 right-0 top-0 z-50 w-full max-w-md overflow-y-auto border-l border-white/10 bg-brand-black/95 shadow-2xl backdrop-blur-xl"
             >
               {/* Close Button */}
-              <div className="sticky top-0 flex justify-end p-6 bg-brand-black/80 backdrop-blur-sm">
+              <div className="sticky top-0 flex justify-end bg-brand-black/80 p-6 backdrop-blur-sm">
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-brand-white hover:bg-white/20 transition-colors"
+                  className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-brand-white transition-colors hover:bg-white/20"
                   aria-label="Close menu"
                 >
                   <X className="h-5 w-5" />
@@ -182,14 +193,20 @@ export function Navigation() {
                       onClick={() => toggleSection('services')}
                       className="flex w-full items-center justify-between py-4 text-left"
                     >
-                      <span className={cn(
-                        "text-xl font-medium transition-colors",
-                        pathname.startsWith('/services') ? "text-accent-gold" : "text-brand-white hover:text-brand-silver"
-                      )}>
+                      <span
+                        className={cn(
+                          'text-xl font-medium transition-colors',
+                          pathname.startsWith('/services')
+                            ? 'text-accent-gold'
+                            : 'text-brand-white hover:text-brand-silver'
+                        )}
+                      >
                         Services
                       </span>
                       <motion.div
-                        animate={{ rotate: expandedSection === 'services' ? 180 : 0 }}
+                        animate={{
+                          rotate: expandedSection === 'services' ? 180 : 0,
+                        }}
                         transition={{ duration: 0.2 }}
                       >
                         <ChevronDown className="h-5 w-5 text-brand-silver" />
@@ -205,7 +222,7 @@ export function Navigation() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="pb-4 pl-4 space-y-3">
+                          <div className="space-y-3 pb-4 pl-4">
                             {services.map((service, index) => (
                               <motion.div
                                 key={service.id}
@@ -216,7 +233,7 @@ export function Navigation() {
                                 <Link
                                   href={`/services#${service.slug}`}
                                   onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block text-brand-silver hover:text-brand-white transition-colors py-1"
+                                  className="block py-1 text-brand-silver transition-colors hover:text-brand-white"
                                 >
                                   {service.title}
                                 </Link>
@@ -230,7 +247,7 @@ export function Navigation() {
                               <Link
                                 href="/services"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="inline-flex items-center gap-1 text-accent-gold hover:text-accent-copper transition-colors py-1 text-sm font-medium"
+                                className="inline-flex items-center gap-1 py-1 text-sm font-medium text-accent-gold transition-colors hover:text-accent-copper"
                               >
                                 View All Services
                                 <ArrowUpRight className="h-3 w-3" />
@@ -248,14 +265,20 @@ export function Navigation() {
                       onClick={() => toggleSection('projects')}
                       className="flex w-full items-center justify-between py-4 text-left"
                     >
-                      <span className={cn(
-                        "text-xl font-medium transition-colors",
-                        pathname.startsWith('/projects') ? "text-accent-gold" : "text-brand-white hover:text-brand-silver"
-                      )}>
+                      <span
+                        className={cn(
+                          'text-xl font-medium transition-colors',
+                          pathname.startsWith('/projects')
+                            ? 'text-accent-gold'
+                            : 'text-brand-white hover:text-brand-silver'
+                        )}
+                      >
                         Projects
                       </span>
                       <motion.div
-                        animate={{ rotate: expandedSection === 'projects' ? 180 : 0 }}
+                        animate={{
+                          rotate: expandedSection === 'projects' ? 180 : 0,
+                        }}
                         transition={{ duration: 0.2 }}
                       >
                         <ChevronDown className="h-5 w-5 text-brand-silver" />
@@ -271,39 +294,39 @@ export function Navigation() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="pb-4 pl-4 space-y-3">
+                          <div className="space-y-3 pb-4 pl-4">
                             <Link
                               href="/projects?category=commercial"
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="block text-brand-silver hover:text-brand-white transition-colors py-1"
+                              className="block py-1 text-brand-silver transition-colors hover:text-brand-white"
                             >
                               Commercial
                             </Link>
                             <Link
                               href="/projects?category=industrial"
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="block text-brand-silver hover:text-brand-white transition-colors py-1"
+                              className="block py-1 text-brand-silver transition-colors hover:text-brand-white"
                             >
                               Industrial
                             </Link>
                             <Link
                               href="/projects?category=retail"
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="block text-brand-silver hover:text-brand-white transition-colors py-1"
+                              className="block py-1 text-brand-silver transition-colors hover:text-brand-white"
                             >
                               Retail & Hospitality
                             </Link>
                             <Link
                               href="/projects?category=healthcare"
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="block text-brand-silver hover:text-brand-white transition-colors py-1"
+                              className="block py-1 text-brand-silver transition-colors hover:text-brand-white"
                             >
                               Healthcare & Education
                             </Link>
                             <Link
                               href="/projects"
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="inline-flex items-center gap-1 text-accent-gold hover:text-accent-copper transition-colors py-1 text-sm font-medium"
+                              className="inline-flex items-center gap-1 py-1 text-sm font-medium text-accent-gold transition-colors hover:text-accent-copper"
                             >
                               View All Projects
                               <ArrowUpRight className="h-3 w-3" />
@@ -319,8 +342,10 @@ export function Navigation() {
                     href="/process"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
-                      "block py-4 text-xl font-medium transition-colors",
-                      isActive('/process') ? "text-accent-gold" : "text-brand-white hover:text-brand-silver"
+                      'block py-4 text-xl font-medium transition-colors',
+                      isActive('/process')
+                        ? 'text-accent-gold'
+                        : 'text-brand-white hover:text-brand-silver'
                     )}
                   >
                     Our Process
@@ -330,8 +355,10 @@ export function Navigation() {
                     href="/about"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
-                      "block py-4 text-xl font-medium transition-colors",
-                      isActive('/about') ? "text-accent-gold" : "text-brand-white hover:text-brand-silver"
+                      'block py-4 text-xl font-medium transition-colors',
+                      isActive('/about')
+                        ? 'text-accent-gold'
+                        : 'text-brand-white hover:text-brand-silver'
                     )}
                   >
                     About Us
@@ -341,8 +368,10 @@ export function Navigation() {
                     href="/contact"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={cn(
-                      "block py-4 text-xl font-medium transition-colors",
-                      isActive('/contact') ? "text-accent-gold" : "text-brand-white hover:text-brand-silver"
+                      'block py-4 text-xl font-medium transition-colors',
+                      isActive('/contact')
+                        ? 'text-accent-gold'
+                        : 'text-brand-white hover:text-brand-silver'
                     )}
                   >
                     Contact
@@ -350,12 +379,14 @@ export function Navigation() {
                 </nav>
 
                 {/* CTA Section */}
-                <div className="mt-12 pt-8 border-t border-white/10">
-                  <p className="text-sm text-brand-silver mb-4">Ready to start your project?</p>
+                <div className="mt-12 border-t border-white/10 pt-8">
+                  <p className="mb-4 text-sm text-brand-silver">
+                    Ready to start your project?
+                  </p>
                   <Link
                     href="/contact"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center gap-2 bg-accent-gold text-brand-black px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-accent-gold/90 transition-colors"
+                    className="inline-flex items-center gap-2 bg-accent-gold px-6 py-3 text-sm font-medium uppercase tracking-wider text-brand-black transition-colors hover:bg-accent-gold/90"
                   >
                     Get in Touch
                     <ArrowUpRight className="h-4 w-4" />
@@ -366,13 +397,19 @@ export function Navigation() {
                 <div className="mt-12 space-y-4 text-sm">
                   <div>
                     <p className="text-brand-gray">Phone</p>
-                    <a href="tel:+61420777755" className="text-brand-white hover:text-accent-gold transition-colors">
+                    <a
+                      href="tel:+61420777755"
+                      className="text-brand-white transition-colors hover:text-accent-gold"
+                    >
                       0420 777 755
                     </a>
                   </div>
                   <div>
                     <p className="text-brand-gray">Email</p>
-                    <a href="mailto:info@bdabuilt.com.au" className="text-brand-white hover:text-accent-gold transition-colors">
+                    <a
+                      href="mailto:info@bdabuilt.com.au"
+                      className="text-brand-white transition-colors hover:text-accent-gold"
+                    >
                       info@bdabuilt.com.au
                     </a>
                   </div>

@@ -6,7 +6,7 @@ import { ContactInfo } from './ContactInfo'
 export const metadata: Metadata = {
   title: 'Contact Us',
   description:
-    'Get in touch with BDA Built to discuss your commercial construction project. We\'re ready to bring your vision to life.',
+    "Get in touch with BDA Built to discuss your commercial construction project. We're ready to bring your vision to life.",
 }
 
 export default function ContactPage() {

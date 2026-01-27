@@ -20,7 +20,9 @@ const categories: { value: ProjectCategory | 'all'; label: string }[] = [
 ]
 
 export function ProjectsGrid() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'all'>('all')
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'all'>(
+    'all'
+  )
   const [searchQuery, setSearchQuery] = useState('')
   const [isPending, startTransition] = useTransition()
 
@@ -65,10 +67,10 @@ export function ProjectsGrid() {
   }
 
   return (
-    <section className="bg-brand-white dark:bg-brand-black py-16 md:py-24">
+    <section className="bg-brand-white py-16 md:py-24 dark:bg-brand-black">
       <div className="container-wide">
         {/* Search and Filter Bar */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border-b border-brand-light dark:border-brand-charcoal pb-6">
+        <div className="flex flex-col gap-6 border-b border-brand-light pb-6 md:flex-row md:items-center md:justify-between dark:border-brand-charcoal">
           {/* Search Input */}
           <div className="relative w-full md:max-w-xs">
             <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-gray" />
@@ -77,13 +79,13 @@ export function ProjectsGrid() {
               placeholder="Search projects..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="w-full border border-brand-light dark:border-brand-gray bg-brand-white dark:bg-brand-slate pl-11 pr-10 py-2.5 text-sm text-brand-black dark:text-brand-white placeholder-brand-gray focus:border-brand-black dark:focus:border-brand-white focus:outline-none focus:ring-2 focus:ring-brand-black/10 dark:focus:ring-brand-white/10 transition-colors"
+              className="w-full border border-brand-light bg-brand-white py-2.5 pl-11 pr-10 text-sm text-brand-black placeholder-brand-gray transition-colors focus:border-brand-black focus:outline-none focus:ring-2 focus:ring-brand-black/10 dark:border-brand-gray dark:bg-brand-slate dark:text-brand-white dark:focus:border-brand-white dark:focus:ring-brand-white/10"
               aria-label="Search projects"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-gray hover:text-brand-black dark:hover:text-brand-white transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-gray transition-colors hover:text-brand-black dark:hover:text-brand-white"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -92,7 +94,11 @@ export function ProjectsGrid() {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter projects by category">
+          <div
+            className="flex flex-wrap gap-2"
+            role="tablist"
+            aria-label="Filter projects by category"
+          >
             {categories.map((category) => (
               <button
                 key={category.value}
@@ -101,10 +107,10 @@ export function ProjectsGrid() {
                 aria-selected={activeCategory === category.value}
                 aria-controls="projects-grid"
                 className={cn(
-                  'px-4 py-2 text-sm font-medium uppercase tracking-wider transition-all focus:outline-none focus:ring-2 focus:ring-brand-black dark:focus:ring-brand-white focus:ring-offset-2',
+                  'px-4 py-2 text-sm font-medium uppercase tracking-wider transition-all focus:outline-none focus:ring-2 focus:ring-brand-black focus:ring-offset-2 dark:focus:ring-brand-white',
                   activeCategory === category.value
-                    ? 'bg-brand-black dark:bg-brand-white text-brand-white dark:text-brand-black'
-                    : 'text-brand-gray hover:text-brand-black dark:hover:text-brand-white hover:bg-brand-light/50 dark:hover:bg-brand-charcoal/50'
+                    ? 'bg-brand-black text-brand-white dark:bg-brand-white dark:text-brand-black'
+                    : 'text-brand-gray hover:bg-brand-light/50 hover:text-brand-black dark:hover:bg-brand-charcoal/50 dark:hover:text-brand-white'
                 )}
               >
                 {category.label}
@@ -122,11 +128,7 @@ export function ProjectsGrid() {
               <>
                 Showing {filteredProjects.length} project
                 {filteredProjects.length !== 1 ? 's' : ''}
-                {searchQuery && (
-                  <span>
-                    {' '}for &quot;{searchQuery}&quot;
-                  </span>
-                )}
+                {searchQuery && <span> for &quot;{searchQuery}&quot;</span>}
               </>
             )}
           </p>
@@ -138,7 +140,7 @@ export function ProjectsGrid() {
                   setSearchQuery('')
                 })
               }}
-              className="text-sm text-accent-gold hover:text-accent-copper transition-colors"
+              className="text-sm text-accent-gold transition-colors hover:text-accent-copper"
             >
               Clear filters
             </button>
@@ -146,11 +148,7 @@ export function ProjectsGrid() {
         </div>
 
         {/* Projects Grid */}
-        <div
-          id="projects-grid"
-          role="tabpanel"
-          aria-busy={isPending}
-        >
+        <div id="projects-grid" role="tabpanel" aria-busy={isPending}>
           {isPending ? (
             <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
@@ -158,7 +156,10 @@ export function ProjectsGrid() {
               ))}
             </div>
           ) : (
-            <motion.div layout className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              layout
+              className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
               <AnimatePresence mode="popLayout">
                 {filteredProjects.map((project, index) => (
                   <motion.div
@@ -199,7 +200,7 @@ export function ProjectsGrid() {
                   setActiveCategory('all')
                   setSearchQuery('')
                 }}
-                className="mt-6 inline-flex items-center gap-2 bg-brand-black dark:bg-brand-white text-brand-white dark:text-brand-black px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-brand-charcoal dark:hover:bg-brand-light transition-colors"
+                className="mt-6 inline-flex items-center gap-2 bg-brand-black px-6 py-3 text-sm font-medium uppercase tracking-wider text-brand-white transition-colors hover:bg-brand-charcoal dark:bg-brand-white dark:text-brand-black dark:hover:bg-brand-light"
               >
                 View All Projects
               </button>

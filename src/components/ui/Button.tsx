@@ -78,10 +78,12 @@ export function Button({
       )}
 
       {/* Content */}
-      <span className={cn(
-        "relative z-10 flex items-center transition-colors duration-300",
-        variant === 'primary' && "group-hover:text-brand-black"
-      )}>
+      <span
+        className={cn(
+          'relative z-10 flex items-center transition-colors duration-300',
+          variant === 'primary' && 'group-hover:text-brand-black'
+        )}
+      >
         {children}
         {showArrow && (
           <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

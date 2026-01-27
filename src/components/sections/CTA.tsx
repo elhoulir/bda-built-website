@@ -39,7 +39,7 @@ export function CTA() {
       <div className="absolute inset-0 bg-brand-black/30" />
 
       {/* Content */}
-      <div className="container-wide relative py-24 md:py-32">
+      <div className="container-wide relative py-16 md:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <motion.span
             initial={{ opacity: 0, y: 20 }}

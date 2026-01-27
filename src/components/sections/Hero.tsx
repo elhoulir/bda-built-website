@@ -588,7 +588,7 @@ export function Hero() {
           playsInline
           onLoadedData={() => setVideoLoaded(true)}
           onEnded={handleVideoEnded}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain md:object-cover"
           poster="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80"
         >
           <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
@@ -670,7 +670,7 @@ export function Hero() {
                   delay: 1.2,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="mt-8 max-w-xl text-base leading-relaxed text-brand-silver/80 md:text-lg"
+                className="mt-8 max-w-xl text-base leading-relaxed text-brand-silver md:text-lg"
               >
                 Where architectural vision meets construction excellence.
                 <span className="mt-2 block">

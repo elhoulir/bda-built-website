@@ -38,7 +38,7 @@ export function DraggableTestimonials() {
   }
 
   return (
-    <section className="overflow-hidden bg-brand-black py-24 md:py-32">
+    <section className="overflow-hidden bg-brand-black py-16 md:py-32">
       <div className="container-wide">
         {/* Header */}
         <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">

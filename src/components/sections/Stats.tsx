@@ -54,7 +54,7 @@ interface StatsProps {
 export function Stats({ dark = false }: StatsProps) {
   return (
     <section
-      className={`relative overflow-hidden py-24 md:py-32 ${
+      className={`relative overflow-hidden py-16 md:py-32 ${
         dark ? 'bg-brand-black' : 'bg-brand-cream'
       }`}
     >

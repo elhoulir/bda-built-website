@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button'
 
 export function ServicesOverview() {
   return (
-    <section className="relative overflow-hidden bg-brand-cream py-24 md:py-32">
+    <section className="relative overflow-hidden bg-brand-cream py-16 md:py-32">
       {/* Subtle architectural background elements */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div

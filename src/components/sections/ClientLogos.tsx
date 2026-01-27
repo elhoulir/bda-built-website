@@ -30,7 +30,7 @@ function ClientLogo({ name, abbr }: { name: string; abbr: string }) {
 
 export function ClientLogos() {
   return (
-    <section className="border-y border-brand-light/10 bg-brand-white py-16">
+    <section className="border-y border-brand-light/10 bg-brand-white py-10 md:py-16">
       <div className="container-wide mb-8">
         <motion.p
           initial={{ opacity: 0, y: 10 }}

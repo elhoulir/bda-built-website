@@ -38,10 +38,10 @@ export function DraggableTestimonials() {
   }
 
   return (
-    <section className="overflow-hidden bg-brand-black py-16 md:py-32">
+    <section className="overflow-hidden bg-brand-black pb-16 pt-12 md:py-32">
       <div className="container-wide">
         {/* Header */}
-        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="mb-10 flex flex-col justify-between gap-8 md:mb-16 md:flex-row md:items-end">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

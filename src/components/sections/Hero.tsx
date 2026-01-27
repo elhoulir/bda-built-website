@@ -516,8 +516,19 @@ export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -547,12 +558,21 @@ export function Hero() {
     }
   }, [isVideoPlaying, isMuted])
 
-  // Handle video end - switch to next video in sequence
+  // Handle video end - switch to next video on desktop, loop on mobile
   const handleVideoEnded = () => {
-    setCurrentVideoIndex((prev) => (prev + 1) % heroVideos.length)
+    if (!isMobile) {
+      // Desktop: cycle to next video
+      setCurrentVideoIndex((prev) => (prev + 1) % heroVideos.length)
+    }
+    // Mobile: video loops automatically via loop attribute
   }
 
-  // When video index changes, load and play the new video
+  // Get current video source - mobile uses video 2 only, desktop cycles both
+  const currentVideoSrc = isMobile
+    ? heroVideos[1]
+    : heroVideos[currentVideoIndex]
+
+  // When video source changes (index or mobile state), reload video
   useEffect(() => {
     if (videoRef.current && videoLoaded) {
       videoRef.current.load()
@@ -560,7 +580,7 @@ export function Hero() {
         videoRef.current.play().catch(() => {})
       }
     }
-  }, [currentVideoIndex])
+  }, [currentVideoIndex, isMobile])
 
   return (
     <section
@@ -586,12 +606,13 @@ export function Hero() {
           autoPlay
           muted
           playsInline
+          loop={isMobile}
           onLoadedData={() => setVideoLoaded(true)}
           onEnded={handleVideoEnded}
-          className="absolute inset-0 h-full w-full object-contain md:object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
           poster="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80"
         >
-          <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
+          <source src={currentVideoSrc} type="video/mp4" />
         </video>
 
         {/* Much brighter overlays - let the video shine */}

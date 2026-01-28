@@ -20,8 +20,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Welcome />
       <MarqueeBanner />
+      <Welcome />
       <ScrollStory />
 
       {/* Architectural transition image */}

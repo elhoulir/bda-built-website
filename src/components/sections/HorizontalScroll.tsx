@@ -72,13 +72,13 @@ function ProjectCard({
 
         {/* Specs bar */}
         {showSpecs && project.specs && (
-          <div className="mt-4 flex gap-6 border-t border-white/10 pt-4 md:gap-8">
+          <div className="mt-4 flex gap-6 border-t border-brand-black/10 pt-4 md:gap-8">
             {project.specs.slice(0, 3).map((spec) => (
               <div key={spec.label}>
-                <div className="font-display text-lg font-bold text-white md:text-xl">
+                <div className="font-display text-lg font-bold text-brand-black md:text-xl">
                   {spec.value}
                 </div>
-                <div className="text-xs uppercase tracking-wider text-brand-silver/70">
+                <div className="text-xs uppercase tracking-wider text-brand-gray">
                   {spec.label}
                 </div>
               </div>
@@ -101,10 +101,12 @@ function ProgressDot({
   const background = useTransform(
     scrollYProgress,
     [index * 0.25, (index + 1) * 0.25],
-    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
+    ['rgba(0,0,0,0.1)', 'rgba(184,151,126,1)']
   )
 
-  return <motion.div className="h-1 w-8 bg-white/20" style={{ background }} />
+  return (
+    <motion.div className="h-1 w-8 bg-brand-black/10" style={{ background }} />
+  )
 }
 
 // Mobile layout - vertical stacked cards
@@ -112,7 +114,7 @@ function MobileLayout() {
   const mobileProjects = projects.slice(0, 2) // Show only 2 on mobile
 
   return (
-    <section className="bg-brand-black py-16 lg:hidden">
+    <section className="bg-brand-cream py-16 lg:hidden">
       <div className="container-wide">
         {/* Header */}
         <div className="mb-10">
@@ -132,7 +134,7 @@ function MobileLayout() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="mt-4 font-display text-3xl font-bold text-white md:text-4xl"
+            className="mt-4 font-display text-3xl font-bold text-brand-black md:text-4xl"
           >
             Project Showcase
           </motion.h2>
@@ -154,7 +156,7 @@ function MobileLayout() {
         >
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-3 border border-white/20 px-8 py-4 text-sm font-medium uppercase tracking-wider text-white transition-all hover:border-accent-gold hover:bg-accent-gold hover:text-brand-black"
+            className="group inline-flex items-center gap-3 border border-brand-black/20 px-8 py-4 text-sm font-medium uppercase tracking-wider text-brand-black transition-all hover:border-accent-gold hover:bg-accent-gold hover:text-brand-black"
           >
             View All Projects
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -178,10 +180,10 @@ function DesktopLayout() {
   return (
     <section
       ref={targetRef}
-      className="relative hidden h-[400vh] bg-brand-black lg:block"
+      className="relative hidden h-[400vh] bg-brand-cream lg:block"
     >
       {/* Section header - fixed at top */}
-      <div className="sticky top-0 z-10 bg-brand-black pb-8 pt-24">
+      <div className="sticky top-0 z-10 bg-brand-cream pb-8 pt-24">
         <div className="container-wide">
           <div className="flex items-end justify-between">
             <div>
@@ -201,7 +203,7 @@ function DesktopLayout() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="mt-4 font-display text-4xl font-bold text-white md:text-5xl"
+                className="mt-4 font-display text-4xl font-bold text-brand-black md:text-5xl"
               >
                 Project Showcase
               </motion.h2>
@@ -212,7 +214,7 @@ function DesktopLayout() {
               viewport={{ once: true }}
               className="text-right"
             >
-              <div className="flex items-center justify-end gap-2 text-xs uppercase tracking-wider text-brand-silver/50">
+              <div className="flex items-center justify-end gap-2 text-xs uppercase tracking-wider text-brand-gray">
                 <span>Scroll to explore</span>
                 <motion.div
                   animate={{ y: [0, 4, 0] }}
@@ -300,13 +302,13 @@ function DesktopLayout() {
 
                 {/* Specs bar */}
                 {project.specs && (
-                  <div className="mt-4 flex gap-8 border-t border-white/10 pt-4">
+                  <div className="mt-4 flex gap-8 border-t border-brand-black/10 pt-4">
                     {project.specs.slice(0, 3).map((spec) => (
                       <div key={spec.label}>
-                        <div className="font-display text-xl font-bold text-white">
+                        <div className="font-display text-xl font-bold text-brand-black">
                           {spec.value}
                         </div>
-                        <div className="text-xs uppercase tracking-wider text-brand-silver/70">
+                        <div className="text-xs uppercase tracking-wider text-brand-gray">
                           {spec.label}
                         </div>
                       </div>
@@ -325,10 +327,10 @@ function DesktopLayout() {
               data-cursor="hover"
               data-cursor-text="View All"
             >
-              <div className="flex h-32 w-32 items-center justify-center rounded-full border border-white/20 transition-all duration-500 group-hover:scale-110 group-hover:border-accent-gold">
-                <ArrowRight className="h-8 w-8 text-white transition-transform duration-300 group-hover:translate-x-2" />
+              <div className="flex h-32 w-32 items-center justify-center rounded-full border border-brand-black/20 transition-all duration-500 group-hover:scale-110 group-hover:border-accent-gold">
+                <ArrowRight className="h-8 w-8 text-brand-black transition-transform duration-300 group-hover:translate-x-2" />
               </div>
-              <span className="mt-6 text-sm font-medium uppercase tracking-wider text-white">
+              <span className="mt-6 text-sm font-medium uppercase tracking-wider text-brand-black">
                 View All Projects
               </span>
             </Link>

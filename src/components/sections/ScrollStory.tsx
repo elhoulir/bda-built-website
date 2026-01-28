@@ -12,6 +12,7 @@ const storySegments = [
       'Every great building starts with a vision. We listen, we understand, and we transform your aspirations into architectural reality.',
     image:
       'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&h=1200&fit=crop&q=80',
+    stat: { value: '20+', label: 'Years Experience' },
   },
   {
     title: 'Craft',
@@ -20,6 +21,7 @@ const storySegments = [
       'Our master craftsmen bring decades of experience to every project. No shortcut, no compromise—just excellence in execution.',
     image:
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&h=1200&fit=crop&q=80',
+    stat: { value: '500+', label: 'Projects Delivered' },
   },
   {
     title: 'Legacy',
@@ -28,6 +30,7 @@ const storySegments = [
       "We don't just build structures; we create landmarks that stand the test of time, shaping skylines for generations.",
     image:
       'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&h=1200&fit=crop&q=80',
+    stat: { value: '$2B+', label: 'Project Value' },
   },
 ]
 
@@ -42,20 +45,42 @@ function StorySegment({
 }) {
   const segmentStart = index / storySegments.length
   const segmentEnd = (index + 1) / storySegments.length
+  const segmentMid = (segmentStart + segmentEnd) / 2
 
+  // Smoother opacity with longer crossfade
   const opacity = useTransform(
     progress,
-    [segmentStart, segmentStart + 0.1, segmentEnd - 0.1, segmentEnd],
-    [0, 1, 1, 0]
+    [
+      segmentStart - 0.05,
+      segmentStart + 0.08,
+      segmentMid,
+      segmentEnd - 0.08,
+      segmentEnd + 0.05,
+    ],
+    [0, 1, 1, 1, 0]
   )
 
+  // More gradual scale transition
   const scale = useTransform(
     progress,
-    [segmentStart, segmentStart + 0.1, segmentEnd - 0.1, segmentEnd],
-    [0.8, 1, 1, 1.1]
+    [segmentStart, segmentMid, segmentEnd],
+    [0.95, 1, 1.02]
   )
 
-  const y = useTransform(progress, [segmentStart, segmentEnd], ['10%', '-10%'])
+  // Smoother vertical movement
+  const y = useTransform(progress, [segmentStart, segmentEnd], ['5%', '-5%'])
+
+  // Staggered text animations with smoother easing
+  const textY = useTransform(
+    progress,
+    [segmentStart, segmentStart + 0.12],
+    [40, 0]
+  )
+  const textOpacity = useTransform(
+    progress,
+    [segmentStart + 0.02, segmentStart + 0.1],
+    [0, 1]
+  )
 
   return (
     <motion.div
@@ -85,15 +110,70 @@ function StorySegment({
               0{index + 1}
             </motion.span>
             <div className="-mt-16 lg:-mt-24">
-              <span className="text-sm font-medium uppercase tracking-[0.2em] text-accent-gold">
+              <motion.span
+                className="inline-block text-sm font-medium uppercase tracking-[0.2em] text-accent-gold"
+                style={{ y: textY, opacity: textOpacity }}
+              >
                 {segment.subtitle}
-              </span>
-              <h2 className="mt-4 font-display text-5xl font-bold text-white md:text-6xl lg:text-7xl">
+              </motion.span>
+              <motion.h2
+                className="mt-4 font-display text-5xl font-bold text-white md:text-6xl lg:text-7xl"
+                style={{
+                  y: useTransform(
+                    progress,
+                    [segmentStart + 0.01, segmentStart + 0.12],
+                    [50, 0]
+                  ),
+                  opacity: useTransform(
+                    progress,
+                    [segmentStart + 0.03, segmentStart + 0.11],
+                    [0, 1]
+                  ),
+                }}
+              >
                 {segment.title}
-              </h2>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-brand-silver">
+              </motion.h2>
+              <motion.p
+                className="mt-6 max-w-md text-lg leading-relaxed text-brand-silver"
+                style={{
+                  y: useTransform(
+                    progress,
+                    [segmentStart + 0.02, segmentStart + 0.13],
+                    [40, 0]
+                  ),
+                  opacity: useTransform(
+                    progress,
+                    [segmentStart + 0.05, segmentStart + 0.12],
+                    [0, 1]
+                  ),
+                }}
+              >
                 {segment.description}
-              </p>
+              </motion.p>
+
+              {/* Stat highlight */}
+              <motion.div
+                className="mt-8 inline-flex items-baseline gap-3 border-l-2 border-accent-gold pl-4"
+                style={{
+                  y: useTransform(
+                    progress,
+                    [segmentStart + 0.04, segmentStart + 0.14],
+                    [30, 0]
+                  ),
+                  opacity: useTransform(
+                    progress,
+                    [segmentStart + 0.06, segmentStart + 0.13],
+                    [0, 1]
+                  ),
+                }}
+              >
+                <span className="font-display text-4xl font-bold text-accent-gold md:text-5xl">
+                  {segment.stat.value}
+                </span>
+                <span className="text-sm uppercase tracking-wider text-brand-silver">
+                  {segment.stat.label}
+                </span>
+              </motion.div>
             </div>
           </div>
 
@@ -156,10 +236,24 @@ function ProgressIndicator({
   const background = useTransform(
     isActive,
     [0, 1],
-    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
+    ['rgba(255,255,255,0.35)', 'rgba(184,151,126,1)']
+  )
+  const boxShadow = useTransform(
+    isActive,
+    [0, 0.5, 1],
+    [
+      '0 0 0 rgba(184,151,126,0)',
+      '0 0 8px rgba(184,151,126,0.5)',
+      '0 0 12px rgba(184,151,126,0.6)',
+    ]
   )
 
-  return <motion.div className="h-16 w-px bg-white/20" style={{ background }} />
+  return (
+    <motion.div
+      className="h-20 w-1 rounded-full"
+      style={{ background, boxShadow }}
+    />
+  )
 }
 
 // Separate component for scroll hint

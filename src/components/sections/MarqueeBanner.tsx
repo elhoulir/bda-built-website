@@ -16,7 +16,7 @@ export function MarqueeBanner() {
       <TextMarquee
         text={bannerPhrases}
         separator="✦"
-        speed={35}
+        speed={55}
         textClassName="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white uppercase tracking-wider"
       />
     </section>

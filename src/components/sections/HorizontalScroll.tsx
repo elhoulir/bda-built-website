@@ -101,10 +101,24 @@ function ProgressDot({
   const background = useTransform(
     scrollYProgress,
     [index * 0.25, (index + 1) * 0.25],
-    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
+    ['rgba(255,255,255,0.35)', 'rgba(184,151,126,1)']
+  )
+  const boxShadow = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 0.5) * 0.25, (index + 1) * 0.25],
+    [
+      '0 0 0 rgba(184,151,126,0)',
+      '0 0 6px rgba(184,151,126,0.5)',
+      '0 0 8px rgba(184,151,126,0.6)',
+    ]
   )
 
-  return <motion.div className="h-1 w-8 bg-white/20" style={{ background }} />
+  return (
+    <motion.div
+      className="h-1.5 w-10 rounded-full"
+      style={{ background, boxShadow }}
+    />
+  )
 }
 
 // Mobile layout - vertical stacked cards

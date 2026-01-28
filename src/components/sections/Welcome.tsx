@@ -17,7 +17,7 @@ export function Welcome() {
             className="flex items-center justify-center gap-4"
           >
             <div className="h-px w-12 bg-accent-gold" />
-            <span className="text-sm font-medium uppercase tracking-[0.2em] text-accent-gold">
+            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-gray">
               Welcome to BDA Built
             </span>
             <div className="h-px w-12 bg-accent-gold" />

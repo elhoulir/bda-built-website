@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 
@@ -45,11 +45,11 @@ function CountUp({
   suffix?: string
 }) {
   const [count, setCount] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   useEffect(() => {
-    if (!isInView) return
+    if (!hasAnimated) return
 
     let startTime: number
     let animationFrame: number
@@ -72,7 +72,24 @@ function CountUp({
 
     animationFrame = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animationFrame)
-  }, [isInView, end, duration])
+  }, [hasAnimated, end, duration])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [hasAnimated])
 
   return (
     <span ref={ref}>

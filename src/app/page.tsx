@@ -1,4 +1,5 @@
 import { Hero } from '@/components/sections/Hero'
+import { Welcome } from '@/components/sections/Welcome'
 import { ScrollStory } from '@/components/sections/ScrollStory'
 import { HorizontalScroll } from '@/components/sections/HorizontalScroll'
 import { Stats } from '@/components/sections/Stats'
@@ -19,6 +20,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Welcome />
       <MarqueeBanner />
       <ScrollStory />
 

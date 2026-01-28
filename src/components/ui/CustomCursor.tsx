@@ -21,15 +21,10 @@ export function CustomCursor() {
   const mouseX = useMotionValue(-100)
   const mouseY = useMotionValue(-100)
 
-  // Faster spring config for snappy cursor
-  const springConfig = { damping: 40, stiffness: 800, mass: 0.2 }
+  // Fast spring for responsive cursor
+  const springConfig = { damping: 30, stiffness: 400, mass: 0.2 }
   const cursorX = useSpring(mouseX, springConfig)
   const cursorY = useSpring(mouseY, springConfig)
-
-  // Slower ring for trailing effect
-  const ringConfig = { damping: 30, stiffness: 300, mass: 0.5 }
-  const ringX = useSpring(mouseX, ringConfig)
-  const ringY = useSpring(mouseY, ringConfig)
 
   const updateCursor = useCallback(
     (e: MouseEvent) => {
@@ -37,10 +32,9 @@ export function CustomCursor() {
       rafRef.current = requestAnimationFrame(() => {
         mouseX.set(e.clientX)
         mouseY.set(e.clientY)
-        if (!isVisible) setIsVisible(true)
       })
     },
-    [mouseX, mouseY, isVisible]
+    [mouseX, mouseY]
   )
 
   useEffect(() => {
@@ -54,29 +48,30 @@ export function CustomCursor() {
       if (cursorAttr) {
         const type = cursorAttr.dataset.cursor as CursorVariant
         setVariant(type)
+        setIsVisible(true)
         if (cursorAttr.dataset.cursorText) {
           setCursorText(cursorAttr.dataset.cursorText)
         }
         return
       }
 
-      // Check for interactive elements
+      // Check for interactive elements - only show custom cursor on these
       const isLink = target.tagName === 'A' || target.closest('a')
       const isButton = target.tagName === 'BUTTON' || target.closest('button')
-      const isInput =
-        target.tagName === 'INPUT' || target.tagName === 'TEXTAREA'
       const isImage = target.closest('[data-image]')
 
-      if (isInput) {
-        setVariant('text')
-      } else if (isImage) {
+      if (isImage) {
         setVariant('view')
         setCursorText('View')
+        setIsVisible(true)
       } else if (isLink || isButton) {
         setVariant('hover')
+        setIsVisible(true)
       } else {
+        // Hide custom cursor for non-interactive elements
         setVariant('default')
         setCursorText('')
+        setIsVisible(false)
       }
     }
 
@@ -85,21 +80,18 @@ export function CustomCursor() {
       if (!relatedTarget || relatedTarget === document.documentElement) {
         setVariant('default')
         setCursorText('')
+        setIsVisible(false)
       }
     }
 
     const handleMouseDown = () => setIsPressed(true)
     const handleMouseUp = () => setIsPressed(false)
-    const handleMouseLeave = () => setIsVisible(false)
-    const handleMouseEnter = () => setIsVisible(true)
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
     document.addEventListener('mouseover', handleMouseOver)
     document.addEventListener('mouseout', handleMouseOut)
     document.addEventListener('mousedown', handleMouseDown)
     document.addEventListener('mouseup', handleMouseUp)
-    document.documentElement.addEventListener('mouseleave', handleMouseLeave)
-    document.documentElement.addEventListener('mouseenter', handleMouseEnter)
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -108,14 +100,6 @@ export function CustomCursor() {
       document.removeEventListener('mouseout', handleMouseOut)
       document.removeEventListener('mousedown', handleMouseDown)
       document.removeEventListener('mouseup', handleMouseUp)
-      document.documentElement.removeEventListener(
-        'mouseleave',
-        handleMouseLeave
-      )
-      document.documentElement.removeEventListener(
-        'mouseenter',
-        handleMouseEnter
-      )
     }
   }, [updateCursor])
 
@@ -130,111 +114,66 @@ export function CustomCursor() {
         return 56
       case 'view':
         return 80
-      case 'text':
-        return 4
       case 'drag':
         return 64
-      case 'hidden':
-        return 0
       default:
-        return 10
+        return 0
     }
   }
 
   const cursorSize = getCursorSize()
 
+  // Only render when hovering over interactive elements
+  if (!isVisible || variant === 'default') {
+    return null
+  }
+
   return (
-    <>
-      {/* Main cursor dot */}
+    <motion.div
+      className="pointer-events-none fixed left-0 top-0 z-[9999]"
+      style={{ x: cursorX, y: cursorY }}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.5 }}
+    >
       <motion.div
-        className="pointer-events-none fixed left-0 top-0 z-[9999]"
-        style={{ x: cursorX, y: cursorY }}
+        className="flex items-center justify-center rounded-full"
+        animate={{
+          width: cursorSize,
+          height: cursorSize,
+          scale: isPressed ? 0.85 : 1,
+        }}
+        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+        style={{
+          marginLeft: -cursorSize / 2,
+          marginTop: -cursorSize / 2,
+        }}
       >
-        <motion.div
-          className="flex items-center justify-center rounded-full"
-          animate={{
-            width: cursorSize,
-            height: cursorSize,
-            scale: isPressed ? 0.85 : 1,
-          }}
-          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-          style={{
-            marginLeft: -cursorSize / 2,
-            marginTop: -cursorSize / 2,
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {variant === 'view' || cursorText ? (
-              <motion.div
-                key="text-cursor"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="flex h-full w-full items-center justify-center rounded-full bg-accent-gold shadow-lg"
-              >
-                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-black">
-                  {cursorText || 'View'}
-                </span>
-              </motion.div>
-            ) : variant === 'text' ? (
-              <motion.div
-                key="text-input"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                exit={{ scaleY: 0 }}
-                className="h-5 w-[2px] bg-brand-black dark:bg-brand-white"
-              />
-            ) : variant === 'hover' ? (
-              <motion.div
-                key="hover"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0 }}
-                className="h-full w-full rounded-full border-2 border-accent-gold bg-accent-gold/10 backdrop-blur-sm"
-              />
-            ) : (
-              <motion.div
-                key="dot"
-                className="h-full w-full rounded-full bg-brand-black dark:bg-brand-white"
-                style={{ mixBlendMode: 'difference' }}
-              />
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </motion.div>
-
-      {/* Trailing ring - subtle follow effect */}
-      <AnimatePresence>
-        {variant === 'default' && isVisible && (
-          <motion.div
-            className="pointer-events-none fixed left-0 top-0 z-[9998]"
-            style={{ x: ringX, y: ringY }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            exit={{ opacity: 0 }}
-          >
+        <AnimatePresence mode="wait">
+          {variant === 'view' || cursorText ? (
             <motion.div
-              className="rounded-full border border-brand-black/20 dark:border-brand-white/20"
-              style={{
-                width: 36,
-                height: 36,
-                marginLeft: -18,
-                marginTop: -18,
-              }}
+              key="text-cursor"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex h-full w-full items-center justify-center rounded-full bg-accent-gold shadow-lg"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-brand-black">
+                {cursorText || 'View'}
+              </span>
+            </motion.div>
+          ) : variant === 'hover' ? (
+            <motion.div
+              key="hover"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              className="h-full w-full rounded-full border-2 border-accent-gold bg-accent-gold/10 backdrop-blur-sm"
             />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Hide default cursor globally */}
-      <style jsx global>{`
-        @media (hover: hover) and (pointer: fine) {
-          * {
-            cursor: none !important;
-          }
-        }
-      `}</style>
-    </>
+          ) : null}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   )
 }

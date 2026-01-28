@@ -12,12 +12,12 @@ const bannerPhrases = [
 
 export function MarqueeBanner() {
   return (
-    <section className="overflow-hidden border-y border-brand-black/10 bg-brand-black py-6">
+    <section className="overflow-hidden bg-brand-black py-6 md:py-8">
       <TextMarquee
         text={bannerPhrases}
         separator="✦"
-        speed={35}
-        textClassName="font-display text-2xl md:text-3xl font-bold text-white uppercase tracking-wider"
+        speed={55}
+        textClassName="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white uppercase tracking-wider"
       />
     </section>
   )

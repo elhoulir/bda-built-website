@@ -417,7 +417,7 @@ function AnimatedHeadline({
   delay?: number
 }) {
   return (
-    <span className={`inline-block overflow-hidden ${className}`}>
+    <span className={`inline-block overflow-hidden pb-[0.15em] ${className}`}>
       <motion.span
         className="inline-block"
         initial={{ y: '110%', rotateX: -80 }}

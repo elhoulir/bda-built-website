@@ -54,6 +54,7 @@ interface TextMarqueeProps {
   className?: string
   textClassName?: string
   speed?: number
+  reverse?: boolean
 }
 
 export function TextMarquee({
@@ -62,6 +63,7 @@ export function TextMarquee({
   className,
   textClassName,
   speed = 20,
+  reverse = false,
 }: TextMarqueeProps) {
   const phrases = Array.isArray(text) ? text : [text]
 
@@ -82,7 +84,12 @@ export function TextMarquee({
   )
 
   return (
-    <Marquee speed={speed} className={className} pauseOnHover={false}>
+    <Marquee
+      speed={speed}
+      className={className}
+      pauseOnHover={false}
+      direction={reverse ? 'right' : 'left'}
+    >
       {content}
     </Marquee>
   )

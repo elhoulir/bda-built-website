@@ -78,7 +78,7 @@ function ProjectCard({
                 <div className="font-display text-lg font-bold text-white md:text-xl">
                   {spec.value}
                 </div>
-                <div className="text-xs uppercase tracking-wider text-brand-silver/70">
+                <div className="text-xs uppercase tracking-wider text-brand-silver">
                   {spec.label}
                 </div>
               </div>
@@ -101,10 +101,24 @@ function ProgressDot({
   const background = useTransform(
     scrollYProgress,
     [index * 0.25, (index + 1) * 0.25],
-    ['rgba(255,255,255,0.2)', 'rgba(184,151,126,1)']
+    ['rgba(255,255,255,0.35)', 'rgba(184,151,126,1)']
+  )
+  const boxShadow = useTransform(
+    scrollYProgress,
+    [index * 0.25, (index + 0.5) * 0.25, (index + 1) * 0.25],
+    [
+      '0 0 0 rgba(184,151,126,0)',
+      '0 0 6px rgba(184,151,126,0.5)',
+      '0 0 8px rgba(184,151,126,0.6)',
+    ]
   )
 
-  return <motion.div className="h-1 w-8 bg-white/20" style={{ background }} />
+  return (
+    <motion.div
+      className="h-1.5 w-10 rounded-full"
+      style={{ background, boxShadow }}
+    />
+  )
 }
 
 // Mobile layout - vertical stacked cards
@@ -212,7 +226,7 @@ function DesktopLayout() {
               viewport={{ once: true }}
               className="text-right"
             >
-              <div className="flex items-center justify-end gap-2 text-xs uppercase tracking-wider text-brand-silver/50">
+              <div className="flex items-center justify-end gap-2 text-xs uppercase tracking-wider text-brand-silver">
                 <span>Scroll to explore</span>
                 <motion.div
                   animate={{ y: [0, 4, 0] }}
@@ -306,7 +320,7 @@ function DesktopLayout() {
                         <div className="font-display text-xl font-bold text-white">
                           {spec.value}
                         </div>
-                        <div className="text-xs uppercase tracking-wider text-brand-silver/70">
+                        <div className="text-xs uppercase tracking-wider text-brand-silver">
                           {spec.label}
                         </div>
                       </div>

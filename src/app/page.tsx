@@ -1,4 +1,5 @@
 import { Hero } from '@/components/sections/Hero'
+import { Welcome } from '@/components/sections/Welcome'
 import { ScrollStory } from '@/components/sections/ScrollStory'
 import { HorizontalScroll } from '@/components/sections/HorizontalScroll'
 import { Stats } from '@/components/sections/Stats'
@@ -20,6 +21,7 @@ export default function HomePage() {
     <>
       <Hero />
       <MarqueeBanner />
+      <Welcome />
       <ScrollStory />
 
       {/* Architectural transition image */}

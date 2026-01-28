@@ -10,10 +10,231 @@ const stats = [
   { value: '$500M+', label: 'Project Value' },
 ]
 
+// Animated architectural building SVG
+function ArchitecturalDrawing() {
+  const pathVariants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: (delay: number) => ({
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { duration: 2, delay, ease: 'easeInOut' },
+        opacity: { duration: 0.3, delay },
+      },
+    }),
+  }
+
+  return (
+    <motion.svg
+      viewBox="0 0 400 500"
+      fill="none"
+      className="absolute bottom-0 right-0 h-[70%] w-auto opacity-[0.08] lg:opacity-[0.12]"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+    >
+      {/* Main tall tower */}
+      <motion.path
+        d="M 200 480 L 200 80 L 280 80 L 280 480"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="text-brand-gray"
+        variants={pathVariants}
+        custom={0}
+      />
+      {/* Tower top detail */}
+      <motion.path
+        d="M 200 80 L 240 40 L 280 80"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="text-brand-gray"
+        variants={pathVariants}
+        custom={0.3}
+      />
+      {/* Tower antenna */}
+      <motion.path
+        d="M 240 40 L 240 10"
+        stroke="currentColor"
+        strokeWidth="1"
+        className="text-accent-gold"
+        variants={pathVariants}
+        custom={0.5}
+      />
+
+      {/* Medium building left */}
+      <motion.path
+        d="M 120 480 L 120 180 L 190 180 L 190 480"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="text-brand-gray"
+        variants={pathVariants}
+        custom={0.4}
+      />
+      {/* Medium building roof */}
+      <motion.path
+        d="M 120 180 L 155 150 L 190 180"
+        stroke="currentColor"
+        strokeWidth="1"
+        className="text-brand-gray"
+        variants={pathVariants}
+        custom={0.6}
+      />
+
+      {/* Small building right */}
+      <motion.path
+        d="M 290 480 L 290 280 L 360 280 L 360 480"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="text-brand-gray"
+        variants={pathVariants}
+        custom={0.5}
+      />
+
+      {/* Smallest building far left */}
+      <motion.path
+        d="M 40 480 L 40 320 L 110 320 L 110 480"
+        stroke="currentColor"
+        strokeWidth="1"
+        className="text-brand-gray"
+        variants={pathVariants}
+        custom={0.6}
+      />
+
+      {/* Tower windows - row 1 */}
+      {[0, 1, 2].map((i) => (
+        <motion.rect
+          key={`tw1-${i}`}
+          x={210 + i * 20}
+          y={100}
+          width="12"
+          height="20"
+          stroke="currentColor"
+          strokeWidth="0.5"
+          className="text-brand-gray"
+          variants={pathVariants}
+          custom={0.8 + i * 0.05}
+        />
+      ))}
+      {/* Tower windows - row 2 */}
+      {[0, 1, 2].map((i) => (
+        <motion.rect
+          key={`tw2-${i}`}
+          x={210 + i * 20}
+          y={140}
+          width="12"
+          height="20"
+          stroke="currentColor"
+          strokeWidth="0.5"
+          className="text-brand-gray"
+          variants={pathVariants}
+          custom={0.9 + i * 0.05}
+        />
+      ))}
+      {/* Tower windows - row 3 */}
+      {[0, 1, 2].map((i) => (
+        <motion.rect
+          key={`tw3-${i}`}
+          x={210 + i * 20}
+          y={180}
+          width="12"
+          height="20"
+          stroke="currentColor"
+          strokeWidth="0.5"
+          className="text-brand-gray"
+          variants={pathVariants}
+          custom={1.0 + i * 0.05}
+        />
+      ))}
+      {/* Tower windows - row 4-7 */}
+      {[220, 260, 300, 340, 380, 420].map((y, rowIndex) =>
+        [0, 1, 2].map((i) => (
+          <motion.rect
+            key={`tw-${y}-${i}`}
+            x={210 + i * 20}
+            y={y}
+            width="12"
+            height="20"
+            stroke="currentColor"
+            strokeWidth="0.5"
+            className="text-brand-gray"
+            variants={pathVariants}
+            custom={1.1 + rowIndex * 0.1 + i * 0.02}
+          />
+        ))
+      )}
+
+      {/* Medium building windows */}
+      {[200, 240, 280, 320, 360, 400, 440].map((y, rowIndex) =>
+        [0, 1].map((i) => (
+          <motion.rect
+            key={`mw-${y}-${i}`}
+            x={130 + i * 30}
+            y={y}
+            width="18"
+            height="25"
+            stroke="currentColor"
+            strokeWidth="0.5"
+            className="text-brand-gray"
+            variants={pathVariants}
+            custom={1.2 + rowIndex * 0.08 + i * 0.02}
+          />
+        ))
+      )}
+
+      {/* Small building windows */}
+      {[300, 340, 380, 420].map((y, rowIndex) => (
+        <motion.rect
+          key={`sw-${y}`}
+          x={305}
+          y={y}
+          width="40"
+          height="25"
+          stroke="currentColor"
+          strokeWidth="0.5"
+          className="text-brand-gray"
+          variants={pathVariants}
+          custom={1.3 + rowIndex * 0.1}
+        />
+      ))}
+
+      {/* Ground line */}
+      <motion.path
+        d="M 20 480 L 380 480"
+        stroke="currentColor"
+        strokeWidth="1"
+        className="text-accent-gold"
+        variants={pathVariants}
+        custom={1.8}
+      />
+
+      {/* Crane on tower */}
+      <motion.path
+        d="M 260 90 L 260 60 L 320 60"
+        stroke="currentColor"
+        strokeWidth="0.75"
+        className="text-accent-gold"
+        variants={pathVariants}
+        custom={2}
+      />
+      <motion.path
+        d="M 320 60 L 320 75"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        className="text-accent-gold"
+        variants={pathVariants}
+        custom={2.2}
+      />
+    </motion.svg>
+  )
+}
+
 export function Welcome() {
   return (
-    <section className="relative bg-brand-cream py-20 md:py-28">
-      <div className="container-wide">
+    <section className="relative overflow-hidden bg-brand-cream py-20 md:py-28">
+      {/* Architectural drawing background */}
+      <ArchitecturalDrawing />
+
+      <div className="container-wide relative">
         <div className="mx-auto max-w-4xl text-center">
           {/* Eyebrow */}
           <motion.div

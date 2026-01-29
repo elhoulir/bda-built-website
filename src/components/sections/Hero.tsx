@@ -9,7 +9,7 @@ import {
   AnimatePresence,
 } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react'
+import { Play, Pause } from 'lucide-react'
 
 // Architectural grid overlay - blueprint style with more visible elements
 function ArchitecturalGrid() {
@@ -510,7 +510,6 @@ const heroVideo =
 
 export function Hero() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -534,14 +533,13 @@ export function Hero() {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.muted = isMuted
       if (isVideoPlaying) {
         videoRef.current.play().catch(() => {})
       } else {
         videoRef.current.pause()
       }
     }
-  }, [isVideoPlaying, isMuted])
+  }, [isVideoPlaying])
 
   return (
     <section
@@ -723,30 +721,17 @@ export function Hero() {
               {/* Right side controls */}
               <div className="ml-auto flex items-center gap-6">
                 {/* Video Controls */}
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setIsVideoPlaying(!isVideoPlaying)}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver backdrop-blur-sm transition-all hover:border-accent-gold hover:text-accent-gold"
-                    aria-label={isVideoPlaying ? 'Pause video' : 'Play video'}
-                  >
-                    {isVideoPlaying ? (
-                      <Pause className="h-4 w-4" />
-                    ) : (
-                      <Play className="h-4 w-4" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => setIsMuted(!isMuted)}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver backdrop-blur-sm transition-all hover:border-accent-gold hover:text-accent-gold"
-                    aria-label={isMuted ? 'Unmute' : 'Mute'}
-                  >
-                    {isMuted ? (
-                      <VolumeX className="h-4 w-4" />
-                    ) : (
-                      <Volume2 className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
+                <button
+                  onClick={() => setIsVideoPlaying(!isVideoPlaying)}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-brand-silver backdrop-blur-sm transition-all hover:border-accent-gold hover:text-accent-gold"
+                  aria-label={isVideoPlaying ? 'Pause video' : 'Play video'}
+                >
+                  {isVideoPlaying ? (
+                    <Pause className="h-4 w-4" />
+                  ) : (
+                    <Play className="h-4 w-4" />
+                  )}
+                </button>
 
                 {/* Scroll indicator */}
                 <motion.div

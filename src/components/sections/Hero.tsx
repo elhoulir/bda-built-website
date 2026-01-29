@@ -572,15 +572,6 @@ export function Hero() {
         className="absolute inset-0"
         style={{ y: smoothY, scale: smoothScale }}
       >
-        {/* Fallback image while video loads - dramatic architectural perspective */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80')`,
-            opacity: videoLoaded ? 0 : 1,
-          }}
-        />
-
         <video
           ref={videoRef}
           autoPlay
@@ -589,7 +580,6 @@ export function Hero() {
           onLoadedData={() => setVideoLoaded(true)}
           onEnded={handleVideoEnded}
           className="absolute inset-0 h-full w-full object-cover"
-          poster="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=1920&q=80"
         >
           <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
         </video>

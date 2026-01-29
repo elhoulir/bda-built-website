@@ -11,6 +11,72 @@ import {
 import { Button } from '@/components/ui/Button'
 import { Play, Pause } from 'lucide-react'
 
+// Corner brackets - architectural framing
+function CornerBrackets() {
+  return (
+    <div className="pointer-events-none absolute inset-8 md:inset-12 lg:inset-16">
+      {/* Top Left */}
+      <motion.div
+        className="absolute left-0 top-0 h-16 w-16 md:h-24 md:w-24"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.8 }}
+      >
+        <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-white/40 to-transparent" />
+        <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-white/40 to-transparent" />
+      </motion.div>
+
+      {/* Top Right */}
+      <motion.div
+        className="absolute right-0 top-0 h-16 w-16 md:h-24 md:w-24"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.9 }}
+      >
+        <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-white/40 to-transparent" />
+        <div className="absolute right-0 top-0 h-px w-full bg-gradient-to-l from-white/40 to-transparent" />
+      </motion.div>
+
+      {/* Bottom Left */}
+      <motion.div
+        className="absolute bottom-0 left-0 h-16 w-16 md:h-24 md:w-24"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+      >
+        <div className="absolute bottom-0 left-0 h-full w-px bg-gradient-to-t from-white/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-white/30 to-transparent" />
+      </motion.div>
+
+      {/* Bottom Right */}
+      <motion.div
+        className="absolute bottom-0 right-0 h-16 w-16 md:h-24 md:w-24"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.1 }}
+      >
+        <div className="absolute bottom-0 right-0 h-full w-px bg-gradient-to-t from-white/30 to-transparent" />
+        <div className="absolute bottom-0 right-0 h-px w-full bg-gradient-to-l from-white/30 to-transparent" />
+      </motion.div>
+    </div>
+  )
+}
+
+// Diagonal accent line
+function DiagonalAccent() {
+  return (
+    <motion.div
+      className="pointer-events-none absolute right-0 top-0 hidden h-[60vh] w-px origin-top-right md:block"
+      style={{ transform: 'rotate(30deg)', transformOrigin: 'top right' }}
+      initial={{ scaleY: 0, opacity: 0 }}
+      animate={{ scaleY: 1, opacity: 1 }}
+      transition={{ duration: 1.5, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="h-full w-full bg-gradient-to-b from-accent-gold/50 via-accent-gold/20 to-transparent" />
+    </motion.div>
+  )
+}
+
 // Animated text with character reveal
 function AnimatedHeadline({
   children,
@@ -134,6 +200,10 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-black/70 via-brand-black/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-brand-black/30" />
       </motion.div>
+
+      {/* Decorative elements */}
+      <CornerBrackets />
+      <DiagonalAccent />
 
       {/* Main Content */}
       <motion.div

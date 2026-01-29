@@ -504,18 +504,14 @@ function VerticalText() {
   )
 }
 
-// Video sources for the hero section (hosted on Cloudflare R2)
-const heroVideos = [
-  'https://pub-1bc164ef4a7b4c6aba8a561fe5ca0a54.r2.dev/video%20one.mp4',
-  'https://pub-1bc164ef4a7b4c6aba8a561fe5ca0a54.r2.dev/video%20two.mp4',
-]
+// Video source for the hero section (hosted on Cloudflare R2)
+const heroVideo =
+  'https://pub-1bc164ef4a7b4c6aba8a561fe5ca0a54.r2.dev/video%20two.mp4'
 
 export function Hero() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [videoLoaded, setVideoLoaded] = useState(false)
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -547,21 +543,6 @@ export function Hero() {
     }
   }, [isVideoPlaying, isMuted])
 
-  // Handle video end - switch to next video in sequence
-  const handleVideoEnded = () => {
-    setCurrentVideoIndex((prev) => (prev + 1) % heroVideos.length)
-  }
-
-  // When video index changes, load and play the new video
-  useEffect(() => {
-    if (videoRef.current && videoLoaded) {
-      videoRef.current.load()
-      if (isVideoPlaying) {
-        videoRef.current.play().catch(() => {})
-      }
-    }
-  }, [currentVideoIndex])
-
   return (
     <section
       ref={containerRef}
@@ -576,12 +557,11 @@ export function Hero() {
           ref={videoRef}
           autoPlay
           muted
+          loop
           playsInline
-          onLoadedData={() => setVideoLoaded(true)}
-          onEnded={handleVideoEnded}
           className="absolute inset-0 h-full w-full object-cover"
         >
-          <source src={heroVideos[currentVideoIndex]} type="video/mp4" />
+          <source src={heroVideo} type="video/mp4" />
         </video>
 
         {/* Much brighter overlays - let the video shine */}

@@ -11,10 +11,7 @@ import {
   MarqueeBannerLight,
 } from '@/components/sections/MarqueeBanner'
 import { CTA } from '@/components/sections/CTA'
-import {
-  ParallaxImage,
-  StatementSection,
-} from '@/components/sections/MediaShowcase'
+import { StatementSection } from '@/components/sections/MediaShowcase'
 
 export default function HomePage() {
   return (
@@ -24,12 +21,17 @@ export default function HomePage() {
       <Welcome />
       <ScrollStory />
 
-      {/* Architectural transition image */}
-      <ParallaxImage
-        src="https://images.unsplash.com/photo-1448630360428-65456885c650?w=1920&fit=crop&q=80"
-        alt="Modern high-rise building looking up"
-        height="h-[60vh]"
-      />
+      {/* Window reveal image */}
+      <div className="relative h-[40vh] overflow-hidden md:h-[50vh]">
+        <div
+          className="absolute inset-0 bg-cover bg-fixed bg-center"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1920&fit=crop&q=80')`,
+          }}
+        />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0 bg-brand-black/30" />
+      </div>
 
       <HorizontalScroll />
       <Stats />
